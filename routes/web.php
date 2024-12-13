@@ -34,10 +34,15 @@ Route::get('/product_details/{id}', [HomeController::class, 'showProductDetails'
 //add wishlist
 Route::post('/wishlist', [HomeController::class, 'add_wishlist'])->name('wishlist.add');
 Route::get('/wishlist', [HomeController::class, 'view_wishlist'])->name('wishlist.view');
+Route::delete('/remove_wishlist/{id}', [HomeController::class, 'remove_wishlist'])->name('remove_wishlist');
+
 
 //add to cart
 Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
 
 //display cart
 Route::get('/show_cart', [HomeController::class, 'show_cart'])->name('showcart.view');
+
+//remove cart
+Route::delete('/remove_cart/{id}', [HomeController::class, 'remove_cart'])->name('remove_cart');
 

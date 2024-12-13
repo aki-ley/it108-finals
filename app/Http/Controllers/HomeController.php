@@ -105,15 +105,37 @@ class HomeController extends Controller
     
         $userId = Auth::id();
     
-        // Retrieve wishlist items with product details
-        $wishlistItems = DB::table('wishlists')
-            ->join('products', 'wishlists.product_id', '=', 'products.product_id') // Join with products table
-            ->where('wishlists.user_id', $userId)
-            ->select('products.product_id', 'products.product_title', 'products.price', 'products.image1', 'wishlists.wishlist_id') // Select necessary product details
-            ->get();
+        // Call the table-valued function to get wishlist items for the logged-in user
+        $wishlistItems = DB::select('SELECT * FROM getWishlistProducts(?)', [$userId]);
     
+        // Pass the results to the view
         return view('user.wishlist', compact('wishlistItems'));
     }
+    
+    public function remove_wishlist($wishlist_id)
+    {
+        if (Auth::check()) {
+            $user_id = Auth::id();
+    
+            // Ensure the wishlist item belongs to the logged-in user
+            $wishlist = Wishlist::where('wishlist_id', $wishlist_id)
+                                ->where('user_id', $user_id)
+                                ->first();
+    
+            if ($wishlist) {
+                $wishlist->delete();
+                return redirect()->back()->with('message', 'Product removed from wishlist');
+            } else {
+                return redirect()->back()->with('error', 'Product not found or does not belong to you.');
+            }
+        } else {
+            return redirect()->route('login')->with('error', 'Please log in to manage your wishlist.');
+        }
+    }
+    
+
+    
+    
 
 
 
@@ -143,7 +165,7 @@ class HomeController extends Controller
 
             $cart->save();
 
-            return redirect()->back()->with('success', 'Product added to cart successfully!');
+            return redirect()->back()->with('message', 'Product added to cart successfully!');
         } else {
             return redirect()->route('login')->with('error', 'Please log in to add items to the cart.');
         }
@@ -153,13 +175,36 @@ class HomeController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
-            $cartItems = Cart::where('user_id', $user->user_id)->get(); // Get all cart items for the logged-in user
-            return view('user.cart', compact('cartItems'));
+            $user_id = $user->user_id;
+
+            // Call the calculate_cart_total function using a raw SQL query
+            $totalPrice = DB::selectOne('SELECT calculate_cart_total(?) AS total', [$user_id]);
+
+            $cartItems = Cart::where('user_id', $user_id)->get(); // Get all cart items for the logged-in user
+
+            return view('user.cart', compact('cartItems', 'totalPrice'));
         } else {
             return redirect()->route('login')->with('error', 'Please log in to view your cart.');
         }
     }
-
+    public function remove_cart($cart_id)
+    {
+        if (Auth::check()) {
+            $user_id = Auth::id();
+    
+            // Ensure the cart item belongs to the logged-in user
+            $cart = Cart::where('cart_id', $cart_id)->where('user_id', $user_id)->first();
+    
+            if ($cart) {
+                $cart->delete();
+                return redirect()->back()->with('message', 'Product removed from cart');
+            } else {
+                return redirect()->back()->with('error', 'Product not found or does not belong to you.');
+            }
+        } else {
+            return redirect()->route('login')->with('error', 'Please log in to manage your cart.');
+        }
+    }
     
 }
 

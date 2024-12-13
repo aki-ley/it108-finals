@@ -42,7 +42,6 @@
                 </div>
             </div>
         @endif
-
         <?php $shippingFee = 300; ?>
 
         <section class="bg-white py-8 antialiased md:py-16">
@@ -52,16 +51,16 @@
                 <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
                     <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
                         <div class="space-y-6">
-                            <?php $totalprice=0; ?>
+                            <?php $totalprice = 0; ?>
                             @foreach($cartItems as $item)
-                            <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+                                <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
                                     <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
                                         <a href="#" class="shrink-0 md:order-1">
                                             <img class="h-40" src="{{ $item->image1 }}" alt="Product Image" class="object-cover size-14 hover-image pb-[2px] hover:bg-black">
                                         </a>
                                         <div class="flex items-center justify-between md:order-3 md:justify-end">
                                             <div class="text-end md:order-4 md:w-32">
-                                                <p class="text-base font-bold text-gray-900 ">₱{{ number_format($item->price, 2) }}</p>
+                                                <p class="text-base font-bold text-gray-900 ">₱{{ number_format($item->price * $item->quantity, 2) }}</p>
                                             </div>
                                         </div>
                                         <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
@@ -70,17 +69,18 @@
                                             </div>
                                             <div class="flex items-center gap-4">
                                                 <p class="text-sm font-medium hover:underline">{{ $item->size }}</p>
-                                                <a href="">
+                                                <form action="{{ route('remove_cart', $item->cart_id) }}" method="POST">
+                                                    @csrf
+                                                    @method('DELETE') <!-- Specify the DELETE method -->
                                                     <button type="submit" class="text-sm font-medium hover:underline text-red-600">
                                                         <i class="fa-solid fa-x me-1.5 text-red-600"></i> Remove
                                                     </button>
-                                                </a>
+                                                </form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             @endforeach
-                            <?php $totalprice = $totalprice + $item->price ?>
                         </div>
                     </div>
 
@@ -90,19 +90,19 @@
 
                             <div class="space-y-4">
                                 <div class="space-y-2">
-                                    <dl class="flex items-center justify-between gap-4">
-                                        <dt class="text-base font-normal text-gray-500">Bag</dt>
-                                        <dd class="text-base font-medium text-gray-900 ">₱{{ number_format($item->price * $item->quantity, 2) }}</dd>
-                                    </dl>
-                                    <dl class="flex items-center justify-between gap-4">
-                                        <dt class="text-base font-normal text-gray-500">Shipping Fee</dt>
-                                        <dd class="text-base font-medium text-gray-900 ">₱{{ number_format($shippingFee, 2) }}</dd>
-                                    </dl>
+                                <dl class="flex items-center justify-between gap-4">
+                                    <dt class="text-base font-normal text-gray-500">Bag</dt>
+                                    <dd class="text-base font-medium text-gray-900 ">₱{{ number_format($totalPrice->total, 2) }}</dd>
+                                </dl>
+                                <dl class="flex items-center justify-between gap-4">
+                                    <dt class="text-base font-normal text-gray-500">Shipping Fee</dt>
+                                    <dd class="text-base font-medium text-gray-900 ">₱{{ number_format($shippingFee, 2) }}</dd>
+                                </dl>
                                 </div>
 
                                 <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
                                     <dt class="text-base font-bold text-gray-900">Total</dt>
-                                    <dd class="text-base font-bold text-gray-900">₱{{ number_format($totalprice + $shippingFee, 2) }}</dd>
+                                    <dd class="text-base font-bold text-gray-900">₱{{ number_format($totalPrice->total + $shippingFee, 2) }}</dd>
                                 </dl>
                             </div>
 
@@ -115,7 +115,7 @@
 
                             <div class="flex items-center justify-center gap-2">
                                 <span class="text-sm font-normal text-gray-500">or</span>
-                                <a href="/userpage" title="" class="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline">
+                                <a href="/shop_page" title="" class="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline">
                                     Continue Shopping
                                 </a>
                             </div>
@@ -124,6 +124,28 @@
                 </div>
             </div>
         </section>
+
+
+            
+        <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const button = document.querySelector('[data-drawer-toggle="default-sidebar"]');
+            const sidebar = document.getElementById('default-sidebar');
+            const dashboardLink = document.getElementById('dashboard-link');
+
+            button.addEventListener('click', function () {
+                sidebar.classList.toggle('-translate-x-full');
+            });
+
+            dashboardLink.addEventListener('click', function () {
+                sidebar.classList.add('-translate-x-full');
+            });
+        });
+        function closeAlert() {
+            const alert = document.querySelector('[data-dismiss="alert"]').closest('.flex');
+            alert.style.display = 'none';
+        }
+        </script>
 
     </body>
 </html>
