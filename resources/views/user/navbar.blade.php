@@ -5,7 +5,7 @@
             <a href="/"><img class="w-[30px] sm:w[30px] md:w-[40px]" src="{{ asset('logos/uptrend.png') }}" alt="Logo"></a>
         </div>
         <div class="flex items-center justify-center">
-            <a href="/" class="font-semibold text-lg"> Shop</a>
+            <a href="/shop_page" class="font-semibold text-lg"> Shop</a>
         </div>
         </div>
 
@@ -41,7 +41,7 @@
                 </div>
 
                 <!-- Heart Icon -->
-                <a href="">
+                <a href="{{route('wishlist.view')}}">
                     <button><i class="ph-bold ph-heart-straight"></i></button>
                 </a>
 
@@ -59,7 +59,7 @@
 
 
 
-                            <form class="hover:bg-gray-100" method="GET" action="">
+                            <form class="hover:bg-gray-100" method="GET" action="/show_cart">
                                 @csrf
                                 <button type="submit" class="font-semibold block px-4 py-2 text-sm text-gray-700" role="menuitem">
                                     Bag
