@@ -38,9 +38,11 @@ class GoogleAuthController extends Controller
             // Log the user in
             Auth::login($user, true);
 
+
             // Redirect based on user type
             return redirect('/redirect');
         } catch (\Exception $e) {
+            
             return redirect()->route('login')->with('error', 'Unable to login using Google.');
         }
     }

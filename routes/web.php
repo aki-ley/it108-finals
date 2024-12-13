@@ -25,8 +25,19 @@ Route::post('/add_product', [SellerController::class, 'add_product'])->name('add
 //showing product
 Route::get('/show_product', [SellerController::class, 'show_product']);
 
-//userpage
-// Route::get('/userpage', [HomeController::class, 'viewshoes']);
+//shop page
+Route::get('/shop_page', [HomeController::class, 'viewshoes']);
+    
+//product details
+Route::get('/product_details/{id}', [HomeController::class, 'showProductDetails']);
 
-//shoes
-Route::get('/shop', [HomeController::class, 'viewshoes']);
+//add wishlist
+Route::post('/wishlist', [HomeController::class, 'add_wishlist'])->name('wishlist.add');
+Route::get('/wishlist', [HomeController::class, 'view_wishlist'])->name('wishlist.view');
+
+//add to cart
+Route::post('/add_cart/{id}', [HomeController::class, 'add_cart']);
+
+//display cart
+Route::get('/show_cart', [HomeController::class, 'show_cart'])->name('showcart.view');
+

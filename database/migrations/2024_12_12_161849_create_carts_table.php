@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('carts', function (Blueprint $table) {
             $table->id('cart_id');
             $table->foreignId('user_id')->constrained('users', 'user_id')->onDelete('cascade'); // Explicitly reference 'user_id'
-            $table->foreignId('product_id')->constrained('products', 'product_id')->onDelete('cascade'); // Explicitly reference 'product_id'
+            $table->foreignId('product_id')->constrained('products', 'product_id')->onDelete('cascade'); 
+            $table->string('product_title')->nullable();
+            $table->string('image1')->nullable();
             $table->integer('quantity');
-            $table->string('size', 10)->nullable();
+            $table->string('size', 20)->nullable();
             $table->decimal('price', 10, 2)->nullable();
             $table->timestamps(0); // Timestamp columns
         });
