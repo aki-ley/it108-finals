@@ -26,4 +26,5 @@ Route::post('/add_product', [SellerController::class, 'add_product'])->name('add
 Route::get('/show_product', [SellerController::class, 'show_product']);
 
 //userpage
-Route::get('/userpage', [HomeController::class, 'viewshoes']);
+Route::get('/shop_page', [HomeController::class, 'viewshoes']);
+    

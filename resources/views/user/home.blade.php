@@ -28,7 +28,7 @@
             <div class="flex justify-center items-center flex-col">
                 <p class="font-bold text-2xl sm:font-extrabold sm:text-6xl mb-2">KEEP UP WITH THE TREND</p>
                 <p class="mb-6">Elevate your look with UP Trend.</p>
-                <button class="bg-black text-white font-medium px-3 py-1 rounded-3xl">Shop Now</button>
+                <a href="/shop_page" class="bg-black text-white font-medium px-3 py-1 rounded-3xl">Shop Now</a>
             </div>
     </div>
 
