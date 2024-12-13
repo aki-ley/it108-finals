@@ -79,7 +79,7 @@
         <!-- Social Logins -->
         <form>
             <div class="flex gap-2 justify-center">
-                <a href="{{ route('auth.google') }}" class="flex items-center gap-2 w-32 bg-black p-2 rounded-md text-gray-200">
+                <a href="{{ route('auth.google') }}" class="flex items-center gap-2 bg-black py-2 px-4 rounded-md text-gray-200">
                     <i class="ph-bold ph-google-logo"></i>
                     <span>Google</span>
                 </a>

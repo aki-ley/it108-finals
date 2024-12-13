@@ -40,6 +40,10 @@ class HomeController extends Controller
 
         $products = DB::table('products')->get();
 
+<<<<<<< HEAD
         return view ('user.shoes', compact('products'));
+=======
+        return view ('user.shop', compact('products'));
+>>>>>>> d332edcdcd23cc9a77ca4d95187e63a5e7cdf275
     }
 }

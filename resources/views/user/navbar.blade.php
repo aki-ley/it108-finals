@@ -1,10 +1,15 @@
 <div class="sticky top-0 z-10">
-    <nav class="w-full sm:flex justify-between p-2 sm:p-4 lg:px-32 md:px-20 sm:px-14 items-center bg-white shadow-md">
+    <nav class="w-full flex justify-between p-2 sm:p-4 lg:px-32 md:px-20 sm:px-14 items-center bg-white shadow-md">
+        <div class="flex space-x-4 sm:space-x-8">
         <div class="flex justify-center">
-            <a href="/"><img class="w-[20px] md:w-[40px]" src="{{ asset('logos/uptrend.png') }}" alt="Logo"></a>
+            <a href="/"><img class="w-[30px] sm:w[30px] md:w-[40px]" src="{{ asset('logos/uptrend.png') }}" alt="Logo"></a>
+        </div>
+        <div class="flex items-center justify-center">
+            <a href="/" class="font-semibold text-lg"> Shop</a>
+        </div>
         </div>
 
-        <div class="absolute sm:static collapse sm:visible">
+        <div class="">
             <div class="space-x-4">
                 <!-- User Icon with Dropdown -->
                 <div class="relative inline-block group">
