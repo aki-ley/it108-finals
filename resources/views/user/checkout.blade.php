@@ -100,7 +100,7 @@
                 <option value="">Country</option>
               </select>
               <div class="relative w-full">
-                <input type="text" id="phone-input" class="z-20 block w-full rounded-e-lg border border-s-0 border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="123-456-7890" maxlength="10" required/>
+                <input type="text" id="phone-input" class="z-20 block w-full rounded-e-lg border border-s-0 border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" placeholder="123-456-7890" maxlength="10" required/>
               </div>
               </div>
             </div>
@@ -112,143 +112,65 @@
           <h3 class="text-xl font-semibold text-gray-900">Payment</h3>
 
           <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+          <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4">
+              <div class="flex items-start">
+                <div class="flex h-5 items-center">
+                  <input id="pay-on-delivery" aria-describedby="pay-on-delivery-text" type="radio" name="payment-method" value="" class="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600" checked/>
+                </div>
+
+                <div class="ms-4 text-sm">
+                  <label for="pay-on-delivery" class="font-medium leading-none text-gray-900"> Cash on delivery </label>
+                  <p id="pay-on-delivery-text" class="mt-1 text-xs font-normal text-gray-500">+₱300 Delivery fee</p>
+                </div>
+              </div>
+
+            </div>
+
             <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4">
               <div class="flex items-start">
                 <div class="flex h-5 items-center">
-                  <input id="credit-card" aria-describedby="credit-card-text" type="radio" name="payment-method" value="" class="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600" checked />
+                  <input id="credit-card" aria-describedby="credit-card-text" type="radio" name="payment-method" value="" class="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600"/>
                 </div>
 
                 <div class="ms-4 text-sm">
                   <label for="credit-card" class="font-medium leading-none text-gray-900"> Credit Card </label>
                   <p id="credit-card-text" class="mt-1 text-xs font-normal text-gray-500">Pay with your credit card</p>
                 </div>
-              </div>
-
-              <div class="mt-4 flex items-center gap-2">
-                <button type="button" class="text-sm font-medium text-gray-500 hover:text-gray-900">Delete</button>
-
-                <div class="h-3 w-px shrink-0 bg-gray-200"></div>
-
-                <button type="button" class="text-sm font-medium text-gray-500 hover:text-gray-900">Edit</button>
-              </div>
-            </div>
-
-            <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4">
-              <div class="flex items-start">
-                <div class="flex h-5 items-center">
-                  <input id="pay-on-delivery" aria-describedby="pay-on-delivery-text" type="radio" name="payment-method" value="" class="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600" />
-                </div>
-
-                <div class="ms-4 text-sm">
-                  <label for="pay-on-delivery" class="font-medium leading-none text-gray-900"> Payment on delivery </label>
-                  <p id="pay-on-delivery-text" class="mt-1 text-xs font-normal text-gray-500">+$15 payment processing fee</p>
-                </div>
-              </div>
-
-              <div class="mt-4 flex items-center gap-2">
-                <button type="button" class="text-sm font-medium text-gray-500 hover:text-gray-900">Delete</button>
-
-                <div class="h-3 w-px shrink-0 bg-gray-200 "></div>
-
-                <button type="button" class="text-sm font-medium text-gray-500 hover:text-gray-900">Edit</button>
-              </div>
-            </div>
-
-            <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4">
-              <div class="flex items-start">
-                <div class="flex h-5 items-center">
-                  <input id="paypal-2" aria-describedby="paypal-text" type="radio" name="payment-method" value="" class="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600" />
-                </div>
-
-                <div class="ms-4 text-sm">
-                  <label for="paypal-2" class="font-medium leading-none text-gray-900"> Paypal account </label>
-                  <p id="paypal-text" class="mt-1 text-xs font-normal text-gray-500">Connect to your account</p>
-                </div>
-              </div>
-
-              <div class="mt-4 flex items-center gap-2">
-                <button type="button" class="text-sm font-medium text-gray-500 hover:text-gray-900">Delete</button>
-
-                <div class="h-3 w-px shrink-0 bg-gray-200"></div>
-
-                <button type="button" class="text-sm font-medium text-gray-500 hover:text-gray-900">Edit</button>
-              </div>
+              </div>          
             </div>
           </div>
         </div>
 
-        <div class="space-y-4">
-          <h3 class="text-xl font-semibold text-gray-900">Delivery Methods</h3>
-
-          <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-            <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4">
-              <div class="flex items-start">
-                <div class="flex h-5 items-center">
-                  <input id="dhl" aria-describedby="dhl-text" type="radio" name="delivery-method" value="" class="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600" checked />
-                </div>
-
-                <div class="ms-4 text-sm">
-                  <label for="dhl" class="font-medium leading-none text-gray-900"> $15 - DHL Fast Delivery </label>
-                  <p id="dhl-text" class="mt-1 text-xs font-normal text-gray-500">Get it by Tommorow</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 ">
-              <div class="flex items-start">
-                <div class="flex h-5 items-center">
-                  <input id="fedex" aria-describedby="fedex-text" type="radio" name="delivery-method" value="" class="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600" />
-                </div>
-
-                <div class="ms-4 text-sm">
-                  <label for="fedex" class="font-medium leading-none text-gray-900"> Free Delivery - FedEx </label>
-                  <p id="fedex-text" class="mt-1 text-xs font-normal text-gray-500">Get it by Friday, 13 Dec 2023</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="rounded-lg border border-gray-200 bg-gray-50 p-4 ps-4 ">
-              <div class="flex items-start">
-                <div class="flex h-5 items-center">
-                  <input id="express" aria-describedby="express-text" type="radio" name="delivery-method" value="" class="h-4 w-4 border-gray-300 bg-white text-primary-600 focus:ring-2 focus:ring-primary-600" />
-                </div>
-
-                <div class="ms-4 text-sm">
-                  <label for="express" class="font-medium leading-none text-gray-900"> $49 - Express Delivery </label>
-                  <p id="express-text" class="mt-1 text-xs font-normal text-gray-500">Get it today</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
 
       <div class="mt-6 w-full space-y-6 sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md">
         <div class="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
           <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm  sm:p-6">
             <p class="text-xl font-semibold text-gray-900 ">Order summary</p>
-
             <div class="space-y-4">
               <div class="space-y-2">
-                <dl class="flex items-center justify-between gap-4">
-                  <dt class="text-base font-normal text-gray-500">Bag</dt>
-                  <dd class="text-base font-medium text-gray-900 ">₱{{number_format($totalprice, 2)}}</dd>
-                </dl>
-                <dl class="flex items-center justify-between gap-4">
-                  <dt class="text-base font-normal text-gray-500">Shipping Fee</dt>
-                  <dd class="text-base font-medium text-gray-900 ">₱{{number_format($shippingFee, 2)}}</dd>
-                </dl>
-
+                  <dl class="flex items-center justify-between gap-4">
+                      <dt class="text-base font-normal text-gray-500">Bag</dt>
+                      <dd class="text-base font-medium text-gray-900 ">₱{{ number_format($totalPrice, 2) }}</dd>
+                  </dl>
+                  <dl class="flex items-center justify-between gap-4">
+                      <dt class="text-base font-normal text-gray-500">Shipping Fee</dt>
+                      <dd class="text-base font-medium text-gray-900 ">₱{{ number_format($shippingFee, 2) }}</dd>
+                  </dl>
               </div>
 
               <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
-                <dt class="text-base font-bold text-gray-900 ">Total</dt>
-                <dd class="text-base font-bold text-gray-900 ">₱{{number_format($totalprice + $shippingFee, 2)}}</dd>
+                  <dt class="text-base font-bold text-gray-900 ">Total</dt>
+                  <dd class="text-base font-bold text-gray-900 ">₱{{ number_format($totalAmount, 2) }}</dd>
               </dl>
-            </div>
+          </div>
 
-            <a href="#" class="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-300">Proceed to Checkout</a>
-
+            <form action="{{ route('place.order') }}" method="POST" class="w-full">
+                  <button type="submit" class="w-full flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white">
+                      Place Order
+                  </button>
+            </form>
             <div class="flex items-center justify-center gap-2">
               <span class="text-sm font-normal text-gray-500"> or </span>
               <a href="/userpage" title="" class="inline-flex items-center gap-2 text-sm font-medium text-primary-700 underline hover:no-underline">
@@ -256,12 +178,6 @@
               </a>
             </div>
           </div>
-        </div>
-
-        <div class="space-y-3">
-          <button type="submit" class="flex w-full items-center justify-center rounded-lg bg-primary-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-primary-800 focus:outline-none focus:ring-4  focus:ring-primary-300">Proceed to Payment</button>
-
-          <p class="text-sm font-normal text-gray-500">One or more items in your cart require an account. <a href="#" title="" class="font-medium text-primary-700 underline hover:no-underline">Sign in or create an account now.</a>.</p>
         </div>
       </div>
     </div>

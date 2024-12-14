@@ -51,7 +51,7 @@
                 <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
                     <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
                         <div class="space-y-6">
-                            <?php $totalprice = 0; ?>
+
                             @foreach($cartItems as $item)
                                 <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
                                     <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
@@ -106,8 +106,7 @@
                                 </dl>
                             </div>
 
-                            <form action="" method="POST" class="w-full">
-                                @csrf
+                            <form action="{{url('/checkout')}}" method="GET" class="w-full">
                                 <button type="submit" class="w-full flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white">
                                     Proceed to checkout
                                 </button>

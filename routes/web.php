@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SellerController;
 use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\OrderController;
+
 
 // Home route
 Route::get('/', [HomeController::class, 'index'])->name('home');
@@ -46,3 +48,10 @@ Route::get('/show_cart', [HomeController::class, 'show_cart'])->name('showcart.v
 //remove cart
 Route::delete('/remove_cart/{id}', [HomeController::class, 'remove_cart'])->name('remove_cart');
 
+//checkout
+
+Route::get('/checkout', [HomeController::class, 'checkout']);
+
+
+//place order
+Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('place.order');
