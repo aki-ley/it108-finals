@@ -14,36 +14,28 @@ class GoogleAuthController extends Controller
     {
         return Socialite::driver('google')->redirect();
     }
-
-    public function handleGoogleCallback(Request $request)
+    public function handleGoogleCallback()
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            $googleUser = Socialite::driver('google')->stateless()->user();
 
-            // Check if the user already exists
-            $user = User::where('google_id', $googleUser->getId())->first();
-
-            if (!$user) {
-                // Create a new user with default 'user' type
-                $user = User::create([
+            // Find or create the user
+            $user = User::firstOrCreate(
+                ['email' => $googleUser->getEmail()],
+                [
                     'name' => $googleUser->getName(),
-                    'email' => $googleUser->getEmail(),
                     'google_id' => $googleUser->getId(),
-                    'avatar' => $googleUser->getAvatar(),
-                    'usertype' => 'user', // Assign default usertype
-                    'password' => bcrypt(Str::random(16)), // Generate a random password
-                ]);
-            }
+                    'password' => bcrypt(Str::random(16)) // Random password for social login
+                ]
+            );
 
             // Log the user in
-            Auth::login($user, true);
+            Auth::login($user);
 
-
-            // Redirect based on user type
-            return redirect('/redirect');
+            // Redirect to the homepage
+            return redirect()->route('home');
         } catch (\Exception $e) {
-            
-            return redirect()->route('login')->with('error', 'Unable to login using Google.');
+            return redirect()->route('home')->with('error', 'Unable to log in using Google. Please try again.');
         }
     }
 }

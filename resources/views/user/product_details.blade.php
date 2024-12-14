@@ -95,7 +95,7 @@
                             <!-- Size -->
                             <input type="hidden" name="size" id="selected-size" value="">
                             <!-- Hidden input for selected image (dynamic) -->
-                            <input type="hidden" name="selected_image" id="selected-image" value="{{ URL('product/' . $product->image1) }}">
+                            <input type="hidden" name="image1" id="selected-image" value="{{ URL('product/' . $product->image1) }}">
                             <!-- Quantity -->
                             <input type="hidden" name="quantity" id="hidden-quantity" value="1">
                             <!-- Add to Cart Button -->
@@ -127,7 +127,7 @@
         // Handle size selection
         const sizeButtons = document.querySelectorAll('.size-btn');
         const selectedSizeInput = document.getElementById('selected-size');
-        const selectedImageInput = document.getElementById('selected-image');
+        // const selectedImageInput = document.getElementById('selected-image');
         const quantityInput = document.getElementById('quantity');
         const hiddenQuantityInput = document.getElementById('hidden-quantity');
 
@@ -180,12 +180,12 @@
                 });
             });
 
-            imageButtons.forEach(image => {
-                image.addEventListener('click', function() {
-                    selectedImageInput.value = this.src;
-                    imageSelected = true;
-                });
-            });
+            // imageButtons.forEach(image => {
+            //     image.addEventListener('click', function() {
+            //         selectedImageInput.value = this.src;
+            //         imageSelected = true;
+            //     });
+            // });
 
         });
 

@@ -13,72 +13,70 @@ class OrderController extends Controller
 {
     public function placeOrder(Request $request)
     {
-        // Check if the user is authenticated
-        if (Auth::check()) {
-            $user = Auth::user();
-            $user_id = $user->user_id;
+        // Get the authenticated user
+        $user = Auth::user();
     
-            // Validate the input fields from the checkout form
-            $validated = $request->validate([
-                'your_name' => 'required|string|max:255',
-                'email' => 'required|email',
-                'address' => 'required|string|max:255',
-                'region' => 'required|string',
-                'province' => 'required|string',
-                'city' => 'required|string',
-                'barangay' => 'required|string',
-                'phoneno' => 'required|string|max:15',
-                'payment_method' => 'required|string|max:50',
-            ]);
+        // Fetch the user's cart items
+        $cartItems = Cart::where('user_id', $user->user_id)->get();
     
-            // Call the calculate_cart_total function using a raw SQL query
-            $totalPrice = DB::selectOne('SELECT calculate_cart_total(?) AS total', [$user_id]);
-    
-            // If no total price is returned, default to 0
-            $totalPrice = $totalPrice ? $totalPrice->total : 0;
-    
-            // Add delivery fee
-            $shippingFee = 300;
-            $totalAmount = $totalPrice + $shippingFee;
-    
-            // Create the order
-            $order = Order::create([
-                'user_id' => $user->user_id,
-                'total_price' => $totalAmount,
-                'payment_status' => 'Pending',
-                'delivery_status' => 'Pending',
-                'testVar' => 'Test value',
-            ]);
-    
-            // Save the order details (delivery info)
-            $orderDetails = OrderDetail::create([
-                'order_id' => $order->order_id,
-                'name' => $request->your_name,
-                'email' => $request->email,
-                'address' => $request->address,
-                'region' => $request->region,
-                'province' => $request->province,
-                'city' => $request->city,
-                'barangay' => $request->barangay,
-                'phone' => $request->phoneno,
-                'payment_method' => $request->payment_method,
-            ]);
-    
-            // Empty the user's cart after the order is placed
-            Cart::where('user_id', $user->user_id)->delete();
-    
-            // Redirect back with success message and necessary data
-            return view('user.checkout', [
-                'message' => 'Your order has been placed successfully.',
-                'totalPrice' => $totalPrice,
-                'shippingFee' => $shippingFee,
-                'totalAmount' => $totalAmount,
-            ]);
+        // Check if there are items in the cart
+        if ($cartItems->isEmpty()) {
+            // Flash a message and redirect back to the checkout page
+            session()->flash('message', 'Your cart is empty.');
+            return redirect()->route('checkout.page');  // Replace 'checkout.page' with your actual route name for the checkout page
         }
     
-        // If not logged in, redirect to login page
-        return redirect()->route('login')->with('error', 'Please log in to place an order.');
+        // Calculate the total price and total quantity
+        $totalPrice = $cartItems->sum(function($cart) {
+            return $cart->price * $cart->quantity;
+        });
+    
+        $totalQuantity = $cartItems->sum('quantity'); // Sum of quantities in the cart
+    
+        // Create a new order with total price and total quantity
+        $order = Order::create([
+            'user_id' => $user->user_id,
+            'total_price' => $totalPrice,
+            'quantity' => $totalQuantity, // Add quantity to the order
+            'payment_status' => 'Pending', // Default value, you can adjust
+            'delivery_status' => 'Pending', // Default value, you can adjust
+        ]);
+    
+        // Move cart items to the order by updating the 'order_id' field
+        foreach ($cartItems as $cart) {
+            $cart->update(['order_id' => $order->order_id]);
+        }
+    
+        // Delete the items from the cart
+        Cart::where('user_id', $user->user_id)->delete();
+    
+        // Insert delivery information into the OrderDetails table
+        OrderDetail::create([
+            'order_id' => $order->order_id,
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'address' => $request->input('address'),
+            'region' => $request->input('region'),
+            'province' => $request->input('province'),
+            'city' => $request->input('city'),
+            'barangay' => $request->input('barangay'),
+            'phone' => $request->input('phone'),
+            'payment_method' => $request->input('payment_method')
+        ]);
+    
+        // Return a success message
+        return redirect()->back()->with('message', 'Order placed successfully');
     }
     
-}
+public function order_page()
+{
+    // Fetch order summary data from the view
+    $userOrderSummaries = DB::table('order_details_summary')->get();
 
+    // Dump the data to inspect the structure
+    // dd($userOrderSummaries);
+
+    // Pass the data to the view
+    return view('user.order_page', compact('userOrderSummaries'));
+}
+}

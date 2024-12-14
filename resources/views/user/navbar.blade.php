@@ -65,7 +65,7 @@
                                     Bag
                                 </button>
                             </form>
-                            <form class="hover:bg-gray-100" method="GET" action="">
+                            <form class="hover:bg-gray-100" method="GET" action="{{route('order.page')}}">
                                 @csrf
                                 <button type="submit" class="font-semibold block px-4 py-2 text-sm text-gray-700" role="menuitem">
                                     Order

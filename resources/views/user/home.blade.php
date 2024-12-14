@@ -34,31 +34,29 @@
 
     <div class="p-20 sm:p-20">
     <div>
-        <p class="font-semibold text-2xl sm:font-medium sm:text-2xl sm:mb-6">See What's New</p>
+        <p class="font-semibold text-2xl sm:font-medium sm:text-2xl sm:mb-6">Popular product</p>
     </div>
-        <div class="flex justify-center">
-
-            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-
+    <div class="flex justify-center">
+    <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @foreach ($popularProducts as $product)
                 <div class="flex flex-col">
                     <div class="h-[600px] items-center justify-center">
-                    <a href="#" class="h-full w-full">
-                        <img src="{{ URL('images/shoes/aj1midwhite.jpg') }}" alt="" class="object-cover h-full w-full">
-                    </a>
+                        <a href="{{ url('product_details', $product->product_id) }}" class="h-full w-full">
+                            <img src="/product/{{$product->image1}}" alt="{{ $product->product_title }}" class="object-cover h-full w-full">
+                        </a>
                     </div>
                     <div class="py-4">
-                        <p class="font-semibold">Air Jordan Mid</p>
-                        <p>2 Variants</p>
+                        <p class="font-semibold">{{ $product->product_title }}</p>
                         <div class="mt-2">
-                            <p class="text-gray-500">₱15,000</p>
+                            <p class="text-gray-500">₱{{ number_format($product->price, 2) }}</p>
                         </div>
-
                     </div>
                 </div>
-
-                
+            @endforeach
         </div>
+    </div>
+
+
     </div>
     </body>
 </html>

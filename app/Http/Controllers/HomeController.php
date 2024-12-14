@@ -18,7 +18,13 @@ class HomeController extends Controller
 
     public function index()
     {
-        return view('user.home');
+        // Fetch data from the 'popular_products' view
+        $popularProducts = DB::table('popular_products')->get();
+
+
+        // Return the data to the view called 'user.home'
+        return view('user.home', compact('popularProducts')); // Use 'popularProducts' instead of 'popular'
+
     }
 
     public function redirect()
@@ -158,7 +164,7 @@ class HomeController extends Controller
             $cart->user_id = $user->user_id;
             $cart->product_title = $product->product_title;
             $cart->price = $product->price;
-            $cart->image1 = $request->selected_image;
+            $cart->image1 = $request->image1;
             $cart->product_id = $product->product_id;
             $cart->quantity = $request->quantity;
             $cart->size = $request->size;
@@ -230,6 +236,9 @@ class HomeController extends Controller
             return redirect()->route('login')->with('error', 'Please log in to checkout.');
         }
     }
+    
+
+ 
     
 }
 

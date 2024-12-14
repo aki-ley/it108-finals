@@ -54,5 +54,15 @@ Route::delete('/remove_cart/{id}', [HomeController::class, 'remove_cart'])->name
 Route::get('/checkout', [HomeController::class, 'checkout']);
 
 
-//place order
-Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('place.order');
+// //place order
+// Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('place.order');
+
+
+Route::get('/cart/checkout', [HomeController::class, 'checkout'])->name('cart.checkout');
+
+Route::post('/order/place', [OrderController::class, 'placeOrder'])->name('order.place');
+
+//DISPLAY ORDER
+Route::get('/order_page', [OrderController::class, 'order_page'])->name('order.page');
+
+

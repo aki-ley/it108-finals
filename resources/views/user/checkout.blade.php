@@ -276,5 +276,25 @@
         });
         });
       </script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const button = document.querySelector('[data-drawer-toggle="default-sidebar"]');
+        const sidebar = document.getElementById('default-sidebar');
+        const dashboardLink = document.getElementById('dashboard-link');
+
+        button.addEventListener('click', function () {
+            sidebar.classList.toggle('-translate-x-full');
+        });
+
+        dashboardLink.addEventListener('click', function () {
+            sidebar.classList.add('-translate-x-full');
+        });
+    });
+    function closeAlert() {
+        const alert = document.querySelector('[data-dismiss="alert"]').closest('.flex');
+        alert.style.display = 'none';
+    }
+    </script>
     </body>
 </html>
