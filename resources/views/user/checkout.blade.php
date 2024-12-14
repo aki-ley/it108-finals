@@ -166,7 +166,7 @@
               </dl>
           </div>
 
-            <form action="{{ route('place.order') }}" method="POST" class="w-full">
+            <form action="" method="POST" class="w-full">
                   <button type="submit" class="w-full flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white">
                       Place Order
                   </button>
