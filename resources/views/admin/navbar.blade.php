@@ -65,12 +65,12 @@
             </li>
     
             <li>
-                <a href="" class="flex items-center p-2 rounded-lg group">
+                <a href="{{url('/view_top_buyer')}}" class="flex items-center p-2 rounded-lg group">
                     <i class="ph-bold ph-eye"></i>
-                    <span class="flex-1 ms-3 whitespace-nowrap">View Sales</span>
+                    <span class="flex-1 ms-3 whitespace-nowrap">View Top Buyer</span>
                 </a>
             </li>
-           
+
         </ul>
     </div>
 </aside>

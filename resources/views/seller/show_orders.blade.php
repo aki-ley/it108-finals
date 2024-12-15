@@ -42,23 +42,24 @@
         <tbody>
     @foreach($orders as $order)                  
         <tr class="border-b text-black">
-            <td class="px-6 py-4">{{ $order->user_name }}</td>
-            <td class="px-6 py-4">{{ $order->user_email }}, {{ $order->phone }}</td>
+            <td class="px-6 py-4">{{ $order->name }}</td>
+            <td class="px-6 py-4">{{ $order->email }}, {{ $order->phone }}</td>
             <td class="px-6 py-4">{{ $order->address }}</td>
             <td class="px-6 py-4">{{ $order->product_title }}</td>
-            <td class="px-6 py-4">₱{{number_format($order->price, 2) }}</td>
+            <td class="px-6 py-4">₱{{number_format($order->product_price, 2) }}</td>
+            <td class="px-6 py-4">₱{{number_format($order->total_price, 2) }}</td>
             <td class="px-6 py-4">{{ $order->quantity }}</td>
             <td class="px-6 py-4">{{ $order->payment_status }}</td>
             <td class="px-6 py-4">{{ $order->delivery_status }}</td>
             <td class="px-6 py-4">
-                <img class="" src="{{ $order->image1 }}">
+                <img class="" src="{{ URL('product/' . $order->productimage) }}">
             </td>
 
             <td class="px-6 py-4">
                 @if($order->delivery_status === 'delivered')
                     <p class="text-gray-500">Delivered</p>
                 @else
-                    <a href="{{ url('delivered', $order->id) }}" 
+                    <a href="{{ route('delivered', ['id' => $order->order_id]) }}" 
                     class="w-full flex items-center justify-center rounded-lg bg-black px-5 py-2.5 text-sm font-medium text-white">
                         Delivered
                     </a>

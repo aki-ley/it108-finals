@@ -68,11 +68,31 @@ class SellerController extends Controller
         return view ('seller.show_product', compact('products'));
     }
 
-    // public function show_orders(){
+    public function show_orders(){
 
-    //         // Fetch order summary data from the view
-    //     $orders = DB::table('order_details_view')->get();
+            // Fetch order summary data from the view
+        $orders = DB::table('order_details_seller_view')->get();
 
-    //     return view('seller.show_orders', compact('orders'));
-    // }
+        return view('seller.show_orders', compact('orders'));
+    }
+
+    public function delivered($order_id)
+    {
+        // Fetch the order from the view
+        $order = DB::table('order_details_seller_view')->where('order_id', $order_id)->first();
+    
+        if (!$order) {
+            return redirect()->back()->with('error', 'Order not found.');
+        }
+    
+        // Update the delivery and payment status in the `orders` table
+        DB::table('orders')->where('order_id', $order_id)->update([
+            'delivery_status' => 'delivered',
+            'payment_status' => 'Paid',
+        ]);
+    
+        return redirect()->back()->with('success', 'Order marked as delivered.');
+    }
+    
+
 }

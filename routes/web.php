@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SellerController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\OrderController;
 
@@ -20,7 +21,7 @@ Route::get('/redirect', [HomeController::class, 'redirect']);
 
 
 
-//seller route
+//SELLER ROUTE
 
 Route::get('/view_product', [SellerController::class, 'view_product']);
 
@@ -34,6 +35,13 @@ Route::get('/show_product', [SellerController::class, 'show_product']);
 
 Route::get('/show_orders', [SellerController::class, 'show_orders'])->name('show.orders');
 
+//update delivery status
+Route::get('/delivered/{id}', [SellerController::class, 'delivered'])->name('delivered');
+
+
+
+
+//USER ROUTE
 
 //shop page
 Route::get('/shop_page', [HomeController::class, 'viewshoes']);
@@ -62,10 +70,6 @@ Route::delete('/remove_cart/{id}', [HomeController::class, 'remove_cart'])->name
 Route::get('/checkout', [HomeController::class, 'checkout']);
 
 
-// //place order
-// Route::post('/place-order', [OrderController::class, 'placeOrder'])->name('place.order');
-
-
 Route::get('/cart/checkout', [HomeController::class, 'checkout'])->name('cart.checkout');
 
 Route::post('/order/place', [OrderController::class, 'placeOrder'])->name('order.place');
@@ -74,3 +78,6 @@ Route::post('/order/place', [OrderController::class, 'placeOrder'])->name('order
 Route::get('/order_page', [OrderController::class, 'order_page'])->name('order.page');
 
 
+//ADMIN ROUTES
+
+Route::get('/view_top_buyer', [AdminController::class, 'top_buyer']);
