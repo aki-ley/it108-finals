@@ -61,21 +61,13 @@
                 </div>
             </div>
 
-            <!-- Remember Me Checkbox -->
-            <div class="flex items-center mb-4">
-                <input type="checkbox" id="remember_me" name="remember" class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
-                <label for="remember_me" class="ml-2 block text-sm text-gray-600">Remember me</label>
-            </div>
-
             <!-- Login Button -->
             <button type="submit" class="w-full text-white bg-[#000000] rounded-lg text-sm px-5 py-2.5 text-center mb-6 focus:ring-4 focus:ring-primary-300">Login</button>
 
             <!-- Fregister -->
             @if (Route::has('password.request'))
-                <div class="flex justify-end">
-                    <a class="underline text-sm text-gray-600 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('register') }}">
-                        don't have account yet?
-                    </a>
+                <div class="flex justify-center">
+                    <a class="text-sm text-gray-500 hover:text-gray-900 hover:underline" href="{{ route('register') }}">Don't have an account yet? Register</a>
                 </div>
             @endif
         </form>
@@ -88,7 +80,7 @@
         </div>
 
         <div class="flex gap-2 justify-center">
-            <a href="{{ route('auth.google') }}" class="flex items-center gap-2 w-32 bg-black p-2 rounded-md text-gray-200">
+            <a href="{{ route('auth.google') }}" class="flex items-center gap-2 px-4 py-2 bg-black rounded-md text-gray-200">
                 <i class="ph-bold ph-google-logo"></i>
                 <span>Google</span>
             </a>

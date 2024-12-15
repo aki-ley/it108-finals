@@ -26,45 +26,44 @@
             <table class="w-full text-sm text-left">
                 <thead class="uppercase">
                     <tr class="border-2">
-                        <th scope="col" class="px-6 py-3">Product Name</th>
-                        <th scope="col" class="px-6 py-3">Description</th>
-                        <th scope="col" class="px-6 py-3">Quantity</th>
-                        <th scope="col" class="px-6 py-3">Price</th>
-                        <th scope="col" class="px-6 py-3 text-center"></th>
-                        <th scope="col" class="px-6 py-3 text-center"></th>
-                        <th scope="col" class="px-6 py-3 text-center"></th>
-                        <th scope="col" class="px-6 py-3 text-center">Action</th>
+                        <th scope="col" class="px-4 py-3">Product Name</th>
+                        <th scope="col" class="px-4 py-3">Description</th>
+                        <th scope="col" class="px-4 py-3">Quantity</th>
+                        <th scope="col" class="px-4 py-3">Price</th>
+                        <th scope="col" class="px-4 py-3">Image</th>
+                        <th scope="col" class="px-4 py-3"></th>
+                        <th scope="col" class="px-4 py-3"></th>
+                        <th scope="col" class="px-4 py-3">Action</th>
 
                     </tr>
                 </thead>
-                <tbody>
-                    @foreach($products as $product)
-                    <tr class="border-b text-black">
-                        <td class="px-6 py-4">{{$product->product_title}}</td>
-                        <td class="px-6 py-4">{{$product->description}}</td>
-                        <td class="px-6 py-4">{{$product->quantity}}</td>
-                        <td class="px-6 py-4">₱{{number_format($product->price)}}</td>
-                        <td class="px-6 py-4">
-                            <img class="" src="/product/{{$product->image1}}">
-                        </td>
-                        <td class="px-6 py-4">
-                            <img class="" src="/product/{{$product->image2}}">
-                        </td>
-                        <td class="px-6 py-4">
-                            <img class="" src="/product/{{$product->image3}}">
-                        </td>
+                @foreach($products as $product)
+                <tr class="border-b text-black">
+                    <td class="px-4 py-4">{{$product->product_title}}</td>
+                    <td class="px-4 py-4">{{$product->description}}</td>
+                    <td class="px-4 py-4">{{$product->quantity}}</td>
+                    <td class="px-4 py-4">₱{{number_format($product->price)}}</td>
+                    <td class="px-2 py-4">
+                        <img class="w-32 h-full" src="/product/{{$product->image1}}">
+                    </td>
+                    <td class="px-2 py-4">
+                        <img class="w-32 h-full" src="/product/{{$product->image2}}">
+                    </td>
+                    <td class="px-2 py-4">
+                        <img class="w-32 h-full" src="/product/{{$product->image3}}">
+                    </td>
 
-                        <td>
-                            <form action="{{ route('product.remove', $product->product_id) }}" method="POST">
-                                @csrf
-                                @method('DELETE') <!-- Specify DELETE method for RESTful compliance -->
-                                <button type="submit" class="text-sm font-medium hover:underline text-red-600">
-                                    <i class="fa-solid fa-x me-1.5 text-red-600"></i> Remove
-                                </button>
-                            </form>
-                        </td>
-                    </tr>
-                    @endforeach
+                    <td>
+                        <form action="{{ route('product.remove', $product->product_id) }}" method="POST">
+                            @csrf
+                            @method('DELETE') <!-- Specify DELETE method for RESTful compliance -->
+                            <button type="submit" class="text-sm font-medium hover:underline text-red-600">
+                                <i class="fa-solid fa-x me-1.5 text-red-600"></i> Remove
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                @endforeach
                 </tbody>
             </table>
         </div>
