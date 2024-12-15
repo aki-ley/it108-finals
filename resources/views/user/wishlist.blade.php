@@ -48,11 +48,10 @@
     <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
         <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
             <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
-            <h2 class="text-xl font-semibold text-gray-900 sm:text-2xl"></i>Wishlist</h2>
-                @forelse ($wishlistItems as $item)
                     <div class="mt-6">
                         <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
-                                <p class="text-green-500"><span class="font-bold text-black">Order Status: </span>To Receive</p>
+                            <h2 class="text-xl font-semibold text-gray-900 sm:text-2xl">Your Wishlist</h2>
+                            @forelse ($wishlistItems as $item)
                                 <hr class="my-4 border-t-2 border-gray-200 w-full">
                                 <div class="space-y-4 md:flex md:gap-6 md:space-y-0">
                                     
@@ -76,9 +75,10 @@
                                         </div>
                                     </div>
                                 </div>
+                            @empty
                         </div>
                     </div>
-                @empty
+                
                 <p class="text-gray-500 mt-6">Your Wishlist is empty.</p>
                 @endforelse
             </div>
