@@ -17,6 +17,9 @@ Route::get('auth/google/callback', [GoogleAuthController::class, 'handleGoogleCa
 
 // Redirect based on user type
 Route::get('/redirect', [HomeController::class, 'redirect']);
+
+
+
 //seller route
 
 Route::get('/view_product', [SellerController::class, 'view_product']);
@@ -26,6 +29,11 @@ Route::post('/add_product', [SellerController::class, 'add_product'])->name('add
 
 //showing product
 Route::get('/show_product', [SellerController::class, 'show_product']);
+
+//show orders on seller side
+
+Route::get('/show_orders', [SellerController::class, 'show_orders'])->name('show.orders');
+
 
 //shop page
 Route::get('/shop_page', [HomeController::class, 'viewshoes']);

@@ -60,7 +60,7 @@
                                         </a>
                                         <div class="flex items-center justify-between md:order-3 md:justify-end">
                                             <div class="text-end md:order-4 md:w-32">
-                                                <p class="text-base font-bold text-gray-900 ">₱{{ number_format($item->price * $item->quantity, 2) }}</p>
+                                                <p class="text-base font-bold text-gray-900 ">₱{{ number_format($item->price, 2) }}</p>
                                             </div>
                                         </div>
                                         <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
@@ -69,6 +69,8 @@
                                             </div>
                                             <div class="flex items-center gap-4">
                                                 <p class="text-sm font-medium hover:underline">{{ $item->size }}</p>
+                                                <p class="text-sm font-medium hover:underline">X{{ $item->quantity }}</p>
+
                                                 <form action="{{ route('remove_cart', $item->cart_id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE') <!-- Specify the DELETE method -->

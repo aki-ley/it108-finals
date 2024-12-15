@@ -67,4 +67,12 @@ class SellerController extends Controller
 
         return view ('seller.show_product', compact('products'));
     }
+
+    // public function show_orders(){
+
+    //         // Fetch order summary data from the view
+    //     $orders = DB::table('order_details_view')->get();
+
+    //     return view('seller.show_orders', compact('orders'));
+    // }
 }

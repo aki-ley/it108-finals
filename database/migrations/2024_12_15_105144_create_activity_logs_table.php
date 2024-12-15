@@ -19,6 +19,7 @@ return new class extends Migration
             $table->json('column_data')->nullable();
             $table->timestamps(0); // Timestamp columns
         });
+
     }
 
     /**

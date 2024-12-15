@@ -35,7 +35,7 @@ class GoogleAuthController extends Controller
             // Redirect to the homepage
             return redirect()->route('home');
         } catch (\Exception $e) {
-            return redirect()->route('home')->with('error', 'Unable to log in using Google. Please try again.');
+            return redirect()->route('login')->with('error', 'Unable to log in using Google. Please try again.');
         }
     }
 }

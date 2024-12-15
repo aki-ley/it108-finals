@@ -19,6 +19,8 @@
                     <th>Product Image</th>
                     <th>Order Date</th>
                     <th>Quantity</th>
+                    <th>Size</th>
+
 
                 </tr>
             </thead>
@@ -34,6 +36,8 @@
                         </td>
                         <td>{{ $summary->orderdate }}</td>
                         <td>{{ $summary->quantity }}</td>
+                        <td>{{ $summary->size }}</td>
+
 
                     </tr>
                 @empty

@@ -70,7 +70,7 @@
                 </a>
             </li>
             <li>
-                <a href="" class="flex items-center p-2 rounded-lg group">
+                <a href="{{route('show.orders')}}" class="flex items-center p-2 rounded-lg group">
                     <i class="ph-bold ph-eye"></i>
                     <span class="flex-1 ms-3 whitespace-nowrap">View Orders</span>
                 </a>

@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('quantity');
             $table->string('size', 20)->nullable();
             $table->decimal('price', 10, 2)->nullable();
+            $table->foreignId('order_id')->nullable()->constrained('orders', 'order_id')->onDelete('cascade');
             $table->timestamps(0); // Timestamp columns
         });
 

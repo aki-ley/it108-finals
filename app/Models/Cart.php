@@ -20,5 +20,11 @@ class Cart extends Model
         'quantity',
         'size',
         'price',
+        'order_id',
     ];
+
+    public function order()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
+    }
 }
