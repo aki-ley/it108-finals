@@ -42,7 +42,6 @@
                 </div>
             </div>
         @endif
-        <?php $shippingFee = 300; ?>
 
         <section class="bg-white py-8 antialiased md:py-16">
             <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -85,7 +84,7 @@
                             @endforeach
                         </div>
                     </div>
-
+                    <?php $shippingFee = 300; ?>
                     <div class="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
                         <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
                             <p class="text-xl font-semibold text-gray-900">Cart summary</p>

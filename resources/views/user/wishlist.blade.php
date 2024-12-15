@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
-    <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css">
+    <script src="https://unpkg.com/@phosphor-icons/web@2.1.1"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>UP TREND - Wishlist</title>
 </head>
@@ -46,55 +46,43 @@
 
     <section class="bg-white py-8 antialiased md:py-16">
     <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
-        <h2 class="text-xl font-semibold text-gray-900 sm:text-2xl">Wishlist</h2>
-
-            @forelse ($wishlistItems as $item) <!-- Loop through wishlistItems -->
-                <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
-                    <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
-                        <div class="space-y-6">
-                            <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
-                                <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-                                    <a href="#" class="shrink-0 md:order-1">
-                                        <!-- Display product image -->
-                                        <img class="h-40 object-cover" 
-                                            src="{{ URL('product/' . $item->image1) }}" 
-                                            alt="{{ $item->product_title }}" />
+        <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
+            <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
+                    <div class="mt-6">
+                        <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+                            <h2 class="text-xl font-semibold text-gray-900 sm:text-2xl">Your Wishlist</h2>
+                            @forelse ($wishlistItems as $item)
+                                <hr class="my-4 border-t-2 border-gray-200 w-full">
+                                <div class="space-y-4 md:flex md:gap-6 md:space-y-0">
+                                    
+                                    <a href="#" class="">
+                                        <img class="h-40" src="{{ URL('product/' . $item->image1) }}" alt="Product" class="object-cover size-14 hover-image pb-[2px] hover:bg-black">
                                     </a>
-                                    <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-                                        <div>
-                                            <!-- Display product title -->
-                                            <a href="#" class="text-base font-medium text-gray-900 hover:underline">
-                                                {{ $item->product_title }}
-                                            </a>
+                                    <div class="grid grid-cols-4 w-full">
+                                        <div class="col-span-3">
+                                            <p class="font-semibold">{{ $item->product_title }}</p>
+                                            <p class="font-bold">₱{{ number_format($item->price, 2) }}</p>
                                         </div>
-                                        <div class="flex items-center gap-4">
-                                            <!-- Display product price -->
-                                            <span class="text-base font-bold text-gray-900">
-                                                ₱{{ number_format($item->price, 2) }}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center justify-between md:order-3 md:justify-end">
+                                        <div class="col-span-1 flex flex-row items-center justify-center">
                                         <!-- Remove product from wishlist -->
-                                        <form action="{{ route('remove_wishlist', $item->wishlist_id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE') <!-- Specify DELETE method for RESTful compliance -->
-                                            <button type="submit" class="text-sm font-medium hover:underline text-red-600">
-                                                <i class="fa-solid fa-x me-1.5 text-red-600"></i> Remove
-                                            </button>
-                                        </form>
+                                            <form action="{{ route('remove_wishlist', $item->wishlist_id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE') <!-- Specify DELETE method for RESTful compliance -->
+                                                <button type="submit" class="">
+                                                    <i class="ph-fill ph-heart-straight text-2xl text-red-500"></i>
+                                                </button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            @empty
                         </div>
                     </div>
-                </div>
-            @empty
-                <p class="text-gray-500 mt-6">Your wishlist is empty.</p>
-            @endforelse
+                
+                <p class="text-gray-500 mt-6">Your Wishlist is empty.</p>
+                @endforelse
+            </div>
         </div>
-
-        
     </section>
 
         
