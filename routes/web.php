@@ -65,7 +65,6 @@ Route::get('/show_cart', [HomeController::class, 'show_cart'])->name('showcart.v
 Route::delete('/remove_cart/{id}', [HomeController::class, 'remove_cart'])->name('remove_cart');
 
 //checkout
-// Route::get('/view_checkout', [HomeController::class, 'view_checkout']);
 
 Route::get('/checkout', [HomeController::class, 'checkout']);
 
