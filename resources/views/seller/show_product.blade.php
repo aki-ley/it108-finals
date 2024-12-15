@@ -30,9 +30,11 @@
                         <th scope="col" class="px-6 py-3">Description</th>
                         <th scope="col" class="px-6 py-3">Quantity</th>
                         <th scope="col" class="px-6 py-3">Price</th>
-                        <th scope="col" class="px-6 py-3 text-center">Variant 1</th>
-                        <th scope="col" class="px-6 py-3 text-center">Variant 2</th>
-                        <th scope="col" class="px-6 py-3 text-center">Variant 3</th>
+                        <th scope="col" class="px-6 py-3 text-center"></th>
+                        <th scope="col" class="px-6 py-3 text-center"></th>
+                        <th scope="col" class="px-6 py-3 text-center"></th>
+                        <th scope="col" class="px-6 py-3 text-center">Action</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -50,6 +52,16 @@
                         </td>
                         <td class="px-6 py-4">
                             <img class="" src="/product/{{$product->image3}}">
+                        </td>
+
+                        <td>
+                            <form action="{{ route('product.remove', $product->product_id) }}" method="POST">
+                                @csrf
+                                @method('DELETE') <!-- Specify DELETE method for RESTful compliance -->
+                                <button type="submit" class="text-sm font-medium hover:underline text-red-600">
+                                    <i class="fa-solid fa-x me-1.5 text-red-600"></i> Remove
+                                </button>
+                            </form>
                         </td>
                     </tr>
                     @endforeach

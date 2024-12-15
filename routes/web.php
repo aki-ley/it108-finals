@@ -31,6 +31,10 @@ Route::post('/add_product', [SellerController::class, 'add_product'])->name('add
 //showing product
 Route::get('/show_product', [SellerController::class, 'show_product']);
 
+//remove product
+Route::delete('/product/{id}', [SellerController::class, 'removeProduct'])->name('product.remove');
+
+
 //show orders on seller side
 
 Route::get('/show_orders', [SellerController::class, 'show_orders'])->name('show.orders');

@@ -68,6 +68,14 @@ class SellerController extends Controller
         return view ('seller.show_product', compact('products'));
     }
 
+    public function removeProduct($product_id)
+    {
+      
+        DB::table('products')->where('product_id', $product_id)->delete();
+
+        return redirect()->back()->with('success', 'Product deleted successfully!');
+    }
+
     public function show_orders(){
 
             // Fetch order summary data from the view
