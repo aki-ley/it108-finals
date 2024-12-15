@@ -171,7 +171,9 @@
           </div>
         </div>
       </div>
-
+      @php
+        $shippingFee = 300;
+      @endphp
       <div class="mt-6 w-full space-y-6 sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md">
         <div class="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
           <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm  sm:p-6">
@@ -190,7 +192,7 @@
 
               <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
                   <dt class="text-base font-bold text-gray-900">Total</dt>
-                  <dd class="text-base font-bold text-gray-900">₱{{ number_format($totalAmount, 2) }}</dd>
+                  <dd class="text-base font-bold text-gray-900">₱{{ number_format($totalAmount + $shippingFee, 2) }}</dd>
                   
               </dl>
 

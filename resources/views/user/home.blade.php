@@ -34,7 +34,7 @@
 
     <div class="p-20 sm:p-20">
     <div>
-        <p class="font-semibold text-2xl sm:font-medium sm:text-2xl sm:mb-6">Popular product</p>
+        <p class="font-semibold text-2xl sm:font-medium sm:text-2xl sm:mb-6">Popular products</p>
     </div>
     <div class="flex justify-center">
     <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-8">

@@ -1,54 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Order Page</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css"/>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <title>UP TREND</title>
 </head>
+
 <body>
-    <div class="container">
-        <h1 class="my-4">User Order Summary</h1>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Product Price</th>
-                    <th>Total Price</th>
-                    <th>Delivery Status</th>
-                    <th>Product Image</th>
-                    <th>Order Date</th>
-                    <th>Quantity</th>
-                    <th>Size</th>
+    @include('user.navbar')
+    <section class="bg-white py-8 antialiased md:py-16">
+            <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
+                <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
+                    <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
+                    <h2 class="text-xl font-semibold text-gray-900 sm:text-2xl"><i class="ph-bold ph-package m-2"></i>Orders</h2>
+                        <div class="mt-6">
+                        @foreach ($userOrderSummaries as $summary)
+                            <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+                                    <p class="text-green-500"><span class="font-bold text-black">Order Status: </span>{{ $summary->delivery_status }}</p>
+                                    <div>
+                                        <hr class="my-4 border-t-2 border-gray-200 w-full">
+                                        <div class="space-y-4 md:flex md:gap-6 md:space-y-0">
+                                            <a href="#" class="">
+                                                <img class="h-40" src="/product/{{$summary->productimage}}" alt="Product" class="object-cover size-14 hover-image pb-[2px] hover:bg-black">
+                                            </a>
+                                            <div class="flex justify-between w-full">
+                                                <div>
+                                                <p class="text-base font-semibold">{{ $summary->product_title }}</p>
+                                                <p class="text-base text-gray-400">Quantity: {{ $summary->quantity }}</p>
+                                                </div>
+                                                <p class="flex items-center text-base font-bold">₱{{ number_format($summary->product_price, 2) }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <hr class="my-4 border-t-2 border-gray-200 w-full">
+                                <p class="text-end font-bold text-xl"><span class="text-base font-normal">Order Total: </span>₱{{ number_format($summary->total_price, 2) }}</p>
+                        @endforeach
+                            </div>
+                        </div>
+                    </div>
 
+                </div>
+            </div>
+        </section>
 
-                </tr>
-            </thead>
-            <tbody>
-                @forelse ($userOrderSummaries as $summary)
-                    <tr>
-                        <td>{{ $summary->product_title }}</td>
-                        <td>₱{{ number_format($summary->product_price, 2) }}</td>
-                        <td>₱{{ number_format($summary->total_price, 2) }}</td>
-                        <td>{{ $summary->delivery_status }}</td>
-                        <td>
-                            <img src="/product/{{$summary->productimage}}" alt="Product Image" width="50" height="50">
-                        </td>
-                        <td>{{ $summary->orderdate }}</td>
-                        <td>{{ $summary->quantity }}</td>
-                        <td>{{ $summary->size }}</td>
-
-
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="7" class="text-center">No records found.</td>
-                    </tr>
-                @endforelse
-            </tbody>
-
-
-        </table>
-    </div>
 </body>
 </html>

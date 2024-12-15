@@ -23,7 +23,7 @@ public function placeOrder(Request $request)
     if ($cartItems->isEmpty()) {
         // Flash a message and redirect back to the checkout page
         session()->flash('message', 'Your cart is empty.');
-        return redirect()->route('checkout.page');  // Replace 'checkout.page' with your actual route name for the checkout page
+        return redirect()->route('user.checkout');  // Replace 'checkout.page' with your actual route name for the checkout page
     }
 
     // Calculate the total price
@@ -67,7 +67,15 @@ public function placeOrder(Request $request)
     ]);
 
     // Return a success message
-    return redirect()->back()->with('message', 'Order placed successfully');
+    return redirect()->route('checkout.result');
+}
+
+public function checkout_result(){
+
+    $checkoutResult = DB::table('order_details')->first();
+
+
+    return view('user.checkout_result', compact('checkoutResult'));
 }
     
 public function order_page()

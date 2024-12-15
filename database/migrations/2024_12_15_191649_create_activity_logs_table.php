@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('activity_logs', function (Blueprint $table) {
             $table->id('log_id');
-            $table->foreignId('user_id')->nullable()->constrained('users', 'user_id')->onDelete('set null');  // Explicitly reference 'user_id'
+            $table->foreignId('user_id')->nullable()->constrained('users', 'user_id')->onDelete('set null');
             $table->string('action_performed');
             $table->string('table_name');
-            $table->json('column_data')->nullable();
+            $table->string('column_data');  // No need for JSON anymore, use string to store concatenated data
             $table->timestamps(0); // Timestamp columns
         });
 

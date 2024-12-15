@@ -58,7 +58,7 @@
             </li>
             
             <li>
-                <a href="" class="flex items-center p-2 rounded-lg group">
+                <a href="{{url('/activity-logs')}}" class="flex items-center p-2 rounded-lg group">
                     <i class="ph-bold ph-eye"></i>
                     <span class="flex-1 ms-3 whitespace-nowrap">Activity Logs</span>
                 </a>

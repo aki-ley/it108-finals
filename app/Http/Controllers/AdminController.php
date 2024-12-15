@@ -20,4 +20,15 @@ class AdminController extends Controller
         // Pass the data to the view
         return view('admin.top_buyer', ['topBuyers' => $topBuyers]);
     }
+
+    public function activity_logs()
+    {
+        // Fetch all activity logs
+        $activityLogs = DB::table('activity_logs')->get();
+
+        // dd($activityLogs);
+
+        // Return the view with the logs
+        return view('admin.activity_logs', compact('activityLogs'));
+    }
 }

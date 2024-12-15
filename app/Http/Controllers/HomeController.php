@@ -224,6 +224,12 @@ class HomeController extends Controller
             // Retrieve all cart items for the logged-in user
             $cartItems = Cart::where('user_id', $user_id)->get();
     
+            // Check if the cart is empty
+            if ($cartItems->isEmpty()) {
+                // Redirect back with a message if the cart is empty
+                return redirect()->back()->with('error', 'Your cart is empty. Please add items to the cart.');
+            }
+    
             // If no total price is returned, default to 0
             $totalPrice = $totalPrice ? $totalPrice->total : 0;
     
@@ -236,6 +242,7 @@ class HomeController extends Controller
             return redirect()->route('login')->with('error', 'Please log in to checkout.');
         }
     }
+    
     
 
  

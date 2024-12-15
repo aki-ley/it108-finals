@@ -80,7 +80,13 @@ Route::post('/order/place', [OrderController::class, 'placeOrder'])->name('order
 //DISPLAY ORDER
 Route::get('/order_page', [OrderController::class, 'order_page'])->name('order.page');
 
+//checkout result
+Route::get('/checkout_result', [OrderController::class, 'checkout_result'])->name('checkout.result');
+
+
 
 //ADMIN ROUTES
 
 Route::get('/view_top_buyer', [AdminController::class, 'top_buyer']);
+
+Route::get('/activity-logs', [AdminController::class, 'activity_logs'])->name('activity.logs');
