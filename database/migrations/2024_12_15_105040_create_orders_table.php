@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('payment_status', 50)->nullable();
             $table->string('delivery_status', 50)->nullable();
             $table->integer('quantity');
+            $table->string('size')->nullable();
             $table->timestamps(0); // Timestamp columns
         });
 
