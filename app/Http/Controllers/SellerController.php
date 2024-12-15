@@ -1,20 +1,24 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
-use App\Models\Product;
 use Illuminate\Support\Facades\Auth; // Import Auth facade
 
 class SellerController extends Controller
 {
-    // Check if the user is authenticated in each method without middleware
+    // Constructor to check if the user is authenticated and is a seller
+    public function __construct()
+    {
+        // No middleware, just restrict access directly in the methods
+    }
 
     public function view_product()
     {
-        // Check if the user is authenticated
-        if (!Auth::check()) {
-            return redirect()->route('login'); // Redirect to login if not authenticated
+        // Check if the user is authenticated and is a seller
+        if (!Auth::check() || Auth::user()->usertype != 'seller') {
+            return redirect('/'); // Redirect if not authenticated or not a seller
         }
 
         return view('seller.product');
@@ -22,12 +26,12 @@ class SellerController extends Controller
 
     public function add_product(Request $request)
     {
-        // Check if the user is authenticated
-        if (!Auth::check()) {
-            return redirect()->route('login'); // Redirect to login if not authenticated
+        // Check if the user is authenticated and is a seller
+        if (!Auth::check() || Auth::user()->usertype != 'seller') {
+            return redirect('/'); // Redirect if not authenticated or not a seller
         }
 
-        // Your existing logic to handle image uploads
+        // Handle image uploads
         $image1 = null;
         $image2 = null;
         $image3 = null;
@@ -68,9 +72,9 @@ class SellerController extends Controller
 
     public function show_product()
     {
-        // Check if the user is authenticated
-        if (!Auth::check()) {
-            return redirect()->route('login'); // Redirect to login if not authenticated
+        // Check if the user is authenticated and is a seller
+        if (!Auth::check() || Auth::user()->usertype != 'seller') {
+            return redirect('/'); // Redirect if not authenticated or not a seller
         }
 
         $products = DB::table('products')->get();
@@ -79,9 +83,9 @@ class SellerController extends Controller
 
     public function removeProduct($product_id)
     {
-        // Check if the user is authenticated
-        if (!Auth::check()) {
-            return redirect()->route('login'); // Redirect to login if not authenticated
+        // Check if the user is authenticated and is a seller
+        if (!Auth::check() || Auth::user()->usertype != 'seller') {
+            return redirect('/'); // Redirect if not authenticated or not a seller
         }
 
         DB::table('products')->where('product_id', $product_id)->delete();
@@ -90,9 +94,9 @@ class SellerController extends Controller
 
     public function show_orders()
     {
-        // Check if the user is authenticated
-        if (!Auth::check()) {
-            return redirect()->route('login'); // Redirect to login if not authenticated
+        // Check if the user is authenticated and is a seller
+        if (!Auth::check() || Auth::user()->usertype != 'seller') {
+            return redirect('/'); // Redirect if not authenticated or not a seller
         }
 
         // Fetch order summary data from the view
@@ -102,9 +106,9 @@ class SellerController extends Controller
 
     public function delivered($order_id)
     {
-        // Check if the user is authenticated
-        if (!Auth::check()) {
-            return redirect()->route('login'); // Redirect to login if not authenticated
+        // Check if the user is authenticated and is a seller
+        if (!Auth::check() || Auth::user()->usertype != 'seller') {
+            return redirect('/'); // Redirect if not authenticated or not a seller
         }
 
         // Fetch the order from the view
