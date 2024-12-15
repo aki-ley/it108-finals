@@ -14,62 +14,41 @@
 
     <body>
     @include('seller.navbar')
-
-    <div class="">
-
-        <div class="">
-        <div class="">
         
 
     <div class="p-4 sm:ml-64">
         <div class="overflow-x-auto relative shadow-md sm:rounded-lg">
-            <table class="w-full text-sm text-left">
-                <thead class="uppercase">
-                    <tr class="border-2">
-                        <th scope="col" class="px-4 py-3">Product Name</th>
-                        <th scope="col" class="px-4 py-3">Description</th>
-                        <th scope="col" class="px-4 py-3">Quantity</th>
-                        <th scope="col" class="px-4 py-3">Price</th>
-                        <th scope="col" class="px-4 py-3">Image</th>
-                        <th scope="col" class="px-4 py-3"></th>
-                        <th scope="col" class="px-4 py-3"></th>
-                        <th scope="col" class="px-4 py-3">Action</th>
-
-                    </tr>
-                </thead>
+            <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+            <h2 class="text-xl font-semibold text-gray-900 sm:text-2xl">Current Listing</h2>
                 @foreach($products as $product)
-                <tr class="border-b text-black">
-                    <td class="px-4 py-4">{{$product->product_title}}</td>
-                    <td class="px-4 py-4">{{$product->description}}</td>
-                    <td class="px-4 py-4">{{$product->quantity}}</td>
-                    <td class="px-4 py-4">₱{{number_format($product->price)}}</td>
-                    <td class="px-2 py-4">
-                        <img class="w-32 h-full" src="/product/{{$product->image1}}">
-                    </td>
-                    <td class="px-2 py-4">
-                        <img class="w-32 h-full" src="/product/{{$product->image2}}">
-                    </td>
-                    <td class="px-2 py-4">
-                        <img class="w-32 h-full" src="/product/{{$product->image3}}">
-                    </td>
-
-                    <td>
-                        <form action="{{ route('product.remove', $product->product_id) }}" method="POST">
-                            @csrf
-                            @method('DELETE') <!-- Specify DELETE method for RESTful compliance -->
-                            <button type="submit" class="text-sm font-medium hover:underline text-red-600">
-                                <i class="fa-solid fa-x me-1.5 text-red-600"></i> Remove
-                            </button>
-                        </form>
-                    </td>
-                </tr>
+                <div>
+                    <hr class="my-4 border-t-2 border-gray-200 w-full">
+                    <div class="space-y-4 md:flex md:gap-6 md:space-y-0">
+                        <a href="#" class="">
+                            <img class="h-40" src="/product/{{$product->image1}}" alt="Product" class="object-cover size-14 hover-image pb-[2px] hover:bg-black">
+                        </a>
+                        <div class="grid grid-cols-4 w-full">
+                            <div class="col-span-3">
+                                <p class="text-xl font-bold">{{$product->product_title}}</p>
+                                <p class="">Description: {{$product->description}}</p>
+                                <p class="">Quantity: {{$product->quantity}}</p>
+                                <p class="font-semibold">Price: ₱{{number_format($product->price)}}</p>
+                            </div>
+                            <div class="col-span-1 flex flex-row space-x-2 justify-center items-center">
+                                <button class="py-2 px-4 bg-black rounded-xl"><i class="text-2xl ph-bold ph-pencil-simple text-green-500"></i></button>
+                                <form action="{{ route('product.remove', $product->product_id) }}" method="POST">
+                                @csrf
+                                @method('DELETE') <!-- Specify DELETE method for RESTful compliance -->
+                                <button type="submit" class="py-2 px-4 bg-black rounded-xl"><i class="text-2xl ph-bold ph-x text-red-500"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 @endforeach
-                </tbody>
-            </table>
+            </div>
         </div>
 
-        </div>
-        </div>
     </div>
     </body>
 </html>

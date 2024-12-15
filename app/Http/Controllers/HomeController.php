@@ -237,8 +237,9 @@ class HomeController extends Controller
         }
     }
     
-
- 
+    public function checkout_result(){
+        return view('user.checkout_result');
+    }
     
 }
 

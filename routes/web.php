@@ -84,3 +84,5 @@ Route::get('/order_page', [OrderController::class, 'order_page'])->name('order.p
 //ADMIN ROUTES
 
 Route::get('/view_top_buyer', [AdminController::class, 'top_buyer']);
+
+Route::get('/checkout_result', [HomeController::class, 'checkout_result']);
