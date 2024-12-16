@@ -13,36 +13,7 @@
 
 <body>
     @include('user.navbar')
-
-    @if(session()->has('error'))
-            <div class="flex justify-center items-center w-full fixed top-0 right-0 left-0 z-50">
-                <div class="relative p-4 w-full max-w-md max-h-full">
-                    <div class="relative bg-white bg-opacity-90 rounded-lg shadow">
-                        <button type="button" class="close absolute top-3 end-2.5 text-gray-500 hover:text-red-500 " data-dismiss="alert" onclick="closeAlert()">
-                            <i class="ph-bold ph-x"></i>
-                        </button>
-                        <div class="p-4 md:p-5 text-center">
-                            <h3 class="mt-5 mb-5 text-lg font-normal text-red-500">{{ session()->get('error') }}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
-
-        @if(session()->has('message'))
-            <div class="flex justify-center items-center w-full fixed top-0 right-0 left-0 z-50">
-                <div class="relative p-4 w-full max-w-md max-h-full">
-                    <div class="relative bg-white bg-opacity-90 rounded-lg shadow">
-                        <button type="button" class="close absolute top-3 end-2.5 text-gray-500 hover:text-red-500 " data-dismiss="alert" onclick="closeAlert()">
-                            <i class="ph-bold ph-x"></i>
-                        </button>
-                        <div class="p-4 md:p-5 text-center">
-                            <h3 class="mt-5 mb-5 text-lg font-normal text-green-500">{{ session()->get('message') }}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
+    @include('user.alert')
 
     <section class="bg-white py-8 antialiased md:py-16">
     <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
@@ -79,33 +50,11 @@
                         </div>
                     </div>
                 
-                <p class="text-gray-500 mt-6">Your Wishlist is empty.</p>
+                <p class="text-gray-500 mt-6 ml-6">Your Wishlist is empty.</p>
                 @endforelse
             </div>
         </div>
     </section>
-
-        
-    <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const button = document.querySelector('[data-drawer-toggle="default-sidebar"]');
-        const sidebar = document.getElementById('default-sidebar');
-        const dashboardLink = document.getElementById('dashboard-link');
-
-        button.addEventListener('click', function () {
-            sidebar.classList.toggle('-translate-x-full');
-        });
-
-        dashboardLink.addEventListener('click', function () {
-            sidebar.classList.add('-translate-x-full');
-        });
-    });
-    function closeAlert() {
-        const alert = document.querySelector('[data-dismiss="alert"]').closest('.flex');
-        alert.style.display = 'none';
-    }
-    </script>
-
 
 </body>
 </html>

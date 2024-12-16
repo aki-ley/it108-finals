@@ -101,6 +101,7 @@ class SellerController extends Controller
 
         // Fetch order summary data from the view
         $orders = DB::table('order_details_view')->get();
+
         return view('seller.show_orders', compact('orders'));
     }
 
@@ -120,7 +121,7 @@ class SellerController extends Controller
     
         // Update the delivery and payment status in the `orders` table
         DB::table('orders')->where('order_id', $order_id)->update([
-            'delivery_status' => 'delivered',
+            'delivery_status' => 'Delivered',
             'payment_status' => 'Paid',
         ]);
     

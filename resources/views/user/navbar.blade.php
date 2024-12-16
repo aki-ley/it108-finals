@@ -57,10 +57,12 @@
                     document.addEventListener('click', function(event) {
                         var searchBar = document.getElementById('searchBar');
                         var searchIcon = document.getElementById('searchIcon');
+                        var suggestions = document.getElementById('suggestions');
                         if (!document.getElementById('searchButton').contains(event.target) && !searchBar.contains(event.target)) {
                             searchBar.classList.remove('w-48', 'opacity-100', 'visible');
                             searchBar.classList.add('w-0', 'opacity-0', 'invisible');
                             searchIcon.classList.remove('hidden');
+                            suggestions.classList.add('hidden');
                         }
                     });
 

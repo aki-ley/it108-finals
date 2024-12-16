@@ -18,7 +18,7 @@
                     <h2 class="text-xl font-semibold text-gray-900 sm:text-2xl"><i class="ph-bold ph-package m-2"></i>Orders</h2>
                         <div class="mt-6">
                         @foreach ($userOrderSummaries as $summary)
-                            <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
+                            <div class="mt-6 rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
                                     <p class="text-green-500"><span class="font-bold text-black">Order Status: </span>{{ $summary->delivery_status }}</p>
                                     <div>
                                         <hr class="my-4 border-t-2 border-gray-200 w-full">
@@ -37,8 +37,8 @@
                                     </div>
                                 <hr class="my-4 border-t-2 border-gray-200 w-full">
                                 <p class="text-end font-bold text-xl"><span class="text-base font-normal">Order Total: </span>₱{{ number_format($summary->total_price, 2) }}</p>
-                        @endforeach
                             </div>
+                        @endforeach
                         </div>
                     </div>
 

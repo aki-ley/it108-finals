@@ -12,40 +12,12 @@
 
     <body>
         @include('user.navbar')
+        @include('user.alert')
 
-        @if(session()->has('error'))
-            <div class="flex justify-center items-center w-full fixed top-0 right-0 left-0 z-50">
-                <div class="relative p-4 w-full max-w-md max-h-full">
-                    <div class="relative bg-white bg-opacity-90 rounded-lg shadow">
-                        <button type="button" class="close absolute top-3 end-2.5 text-gray-500 hover:text-red-500 " data-dismiss="alert" onclick="closeAlert()">
-                            <i class="ph-bold ph-x"></i>
-                        </button>
-                        <div class="p-4 md:p-5 text-center">
-                            <h3 class="mt-5 mb-5 text-lg font-normal text-red-500">{{ session()->get('error') }}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
-
-        @if(session()->has('message'))
-            <div class="flex justify-center items-center w-full fixed top-0 right-0 left-0 z-50">
-                <div class="relative p-4 w-full max-w-md max-h-full">
-                    <div class="relative bg-white bg-opacity-90 rounded-lg shadow">
-                        <button type="button" class="close absolute top-3 end-2.5 text-gray-500 hover:text-red-500 " data-dismiss="alert" onclick="closeAlert()">
-                            <i class="ph-bold ph-x"></i>
-                        </button>
-                        <div class="p-4 md:p-5 text-center">
-                            <h3 class="mt-5 mb-5 text-lg font-normal text-green-500">{{ session()->get('message') }}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
 
         <section class="bg-white py-8 antialiased md:py-16">
             <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
-                <h2 class="text-xl font-semibold text-gray-900 sm:text-2xl">Shopping Cart</h2>
+                <h2 class="text-xl font-semibold text-gray-900 sm:text-2xl">Your Bag</h2>
 
                 <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
                     <div class="mx-auto w-full flex-none lg:max-w-2xl xl:max-w-4xl">
@@ -53,33 +25,28 @@
 
                             @foreach($cartItems as $item)
                                 <div class="rounded-lg border border-gray-200 bg-white p-4 shadow-sm md:p-6">
-                                    <div class="space-y-4 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
-                                        <a href="#" class="shrink-0 md:order-1">
-                                            <img class="h-40" src="{{ $item->image1 }}" alt="Product Image" class="object-cover size-14 hover-image pb-[2px] hover:bg-black">
-                                        </a>
-                                        <div class="flex items-center justify-between md:order-3 md:justify-end">
-                                            <div class="text-end md:order-4 md:w-32">
-                                                <p class="text-base font-bold text-gray-900 ">₱{{ number_format($item->price, 2) }}</p>
+                                        <div class="grid grid-cols-5">
+                                            <div class="col-span-1">
+                                                <a href="#" class="">
+                                                    <img class="h-40" src="{{ $item->image1 }}" alt="Product" class="object-cover size-14 hover-image pb-[2px] hover:bg-black">
+                                                </a>
                                             </div>
-                                        </div>
-                                        <div class="w-full min-w-0 flex-1 space-y-4 md:order-2 md:max-w-md">
-                                            <div>
+                                            <div class="col-span-3">
                                                 <a href="#" class="text-base font-medium text-gray-900 hover:underline ">{{ $item->product_title }}</a>
+                                                <p class="text-sm text-gray-500 font-medium">Size: {{ $item->size }}</p>
+                                                <p class="text-sm text-gray-500 font-medium">Quantity: {{ $item->quantity }}</p>
                                             </div>
-                                            <div class="flex items-center gap-4">
-                                                <p class="text-sm font-medium hover:underline">{{ $item->size }}</p>
-                                                <p class="text-sm font-medium hover:underline">X{{ $item->quantity }}</p>
-
-                                                <form action="{{ route('remove_cart', $item->cart_id) }}" method="POST">
+                                            <div class="col-span-1 flex flex-col justify-between items-end">
+                                                <form class="" action="{{ route('remove_cart', $item->cart_id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE') <!-- Specify the DELETE method -->
-                                                    <button type="submit" class="text-sm font-medium hover:underline text-red-600">
-                                                        <i class="fa-solid fa-x me-1.5 text-red-600"></i> Remove
+                                                    <button type="submit" class="text-lg">
+                                                        <i class="ph-bold ph-trash"></i>
                                                     </button>
                                                 </form>
+                                                <p class="text-base font-semibold text-gray-900 ">Price: <span class="font-bold">₱{{ number_format($item->price, 2) }}</span></p>
                                             </div>
                                         </div>
-                                    </div>
                                 </div>
                             @endforeach
                         </div>
@@ -87,7 +54,7 @@
                     <?php $shippingFee = 300; ?>
                     <div class="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
                         <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm sm:p-6">
-                            <p class="text-xl font-semibold text-gray-900">Cart summary</p>
+                            <p class="text-xl font-semibold text-gray-900">Order Summary</p>
 
                             <div class="space-y-4">
                                 <div class="space-y-2">
@@ -124,28 +91,6 @@
                 </div>
             </div>
         </section>
-
-
-            
-        <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const button = document.querySelector('[data-drawer-toggle="default-sidebar"]');
-            const sidebar = document.getElementById('default-sidebar');
-            const dashboardLink = document.getElementById('dashboard-link');
-
-            button.addEventListener('click', function () {
-                sidebar.classList.toggle('-translate-x-full');
-            });
-
-            dashboardLink.addEventListener('click', function () {
-                sidebar.classList.add('-translate-x-full');
-            });
-        });
-        function closeAlert() {
-            const alert = document.querySelector('[data-dismiss="alert"]').closest('.flex');
-            alert.style.display = 'none';
-        }
-        </script>
 
     </body>
 </html>

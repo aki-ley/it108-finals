@@ -75,7 +75,6 @@
                     <span class="flex-1 ms-3 whitespace-nowrap">View Orders</span>
                 </a>
             </li>
-        
         </ul>
     </div>
 </aside>

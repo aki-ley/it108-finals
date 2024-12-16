@@ -11,36 +11,7 @@
 
 <body>
     @include('user.navbar')
-
-            @if(session()->has('message'))
-                <div class="flex justify-center items-center w-full fixed top-0 right-0 left-0 z-50 alert-message">
-                    <div class="relative p-4 w-full max-w-md max-h-full">
-                        <div class="relative bg-white bg-opacity-90 rounded-lg shadow">
-                            <button type="button" class="close absolute top-3 end-2.5 text-gray-500 hover:text-red-500 " data-dismiss="alert" onclick="closeAlert()">
-                                <i class="ph-bold ph-x"></i>
-                            </button>
-                            <div class="p-4 md:p-5 text-center">
-                                <h3 class="mt-5 mb-5 text-lg font-normal text-green-500">{{ session()->get('message') }}</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
-
-            @if(session()->has('error'))
-                <div class="flex justify-center items-center w-full fixed top-0 right-0 left-0 z-50 alert-message">
-                    <div class="relative p-4 w-full max-w-md max-h-full">
-                        <div class="relative bg-white bg-opacity-90 rounded-lg shadow">
-                            <button type="button" class="close absolute top-3 end-2.5 text-gray-500 hover:text-red-500 " data-dismiss="alert" onclick="closeAlert()">
-                                <i class="ph-bold ph-x"></i>
-                            </button>
-                            <div class="p-4 md:p-5 text-center">
-                                <h3 class="mt-5 mb-5 text-lg font-normal text-red-500">{{ session()->get('error') }}</h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            @endif
+    @include('user.alert')
             
     <section class="py-8 md:py-16">
         <div class="max-w-screen-lg px-4 mx-auto 2xl:px-0">
@@ -66,7 +37,8 @@
 
                     <div>
                         <p class="text-base font-bold sm:text-xl mt-10">Select Size</p>
-                        <div class="mt-6 sm:mt-8 grid grid-cols-2 gap-1">
+                        <p id="size-error" class="text-red-500 mt-4 hidden">Please select a size.</p>
+                        <div class="mt-6 grid grid-cols-2 gap-1">
                             <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 11 / W 12.5">US M 11 / W 12.5</button>
                             <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 10.5 / W 12">US M 10.5 / W 12</button>
                             <button class="border-2 hover:border-black py-2 px-4 rounded-md text-lg size-btn" data-size="US M 10 / W 11.5">US M 10 / W 11.5</button>
@@ -80,12 +52,14 @@
                     <div class="mt-6 sm:mt-8">
                         <p class="text-base font-bold sm:text-xl">Quantity</p>
                         <div class="flex items-center mt-4">
-                            <button type="button" class="decrease-quantity px-4 py-2 border rounded-l-lg border-gray-300 border-r-0 bg-black text-white" id="decrease-quantity">-</button><input type="number" id="quantity" name="quantity" value="1" class="w-12 py-2 text-center border border-gray-300" min="1"><button type="button" class="increase-quantity px-4 py-2 border rounded-r-lg border-gray-300 border-l-0 bg-black text-white" id="increase-quantity">+</button>
+                            <button type="button" class="decrease-quantity px-4 py-2 border rounded-l-lg border-gray-300 border-r-0 bg-black text-white" id="decrease-quantity">-</button>
+                            <input type="number" id="quantity" name="quantity" value="1" class="focus:border-black focus:ring-black w-12 py-2 text-center border border-gray-300" min="1" max="99" step="1" oninput="this.value = this.value.slice(0, 2)">
+                            <button type="button" class="increase-quantity px-4 py-2 border rounded-r-lg border-gray-300 border-l-0 bg-black text-white" id="increase-quantity">+</button>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-5 gap-2">
-                        <form class="mt-6 gap-2 sm:items-center grid col-span-4 sm:mt-8" action="{{ url('add_cart', $product->product_id) }}" method="POST">
+                        <form class="mt-6 gap-2 sm:items-center grid col-span-4 sm:mt-8" action="{{ url('add_cart', $product->product_id) }}" method="POST" id="add-to-cart-form">
                             @csrf
                             <!-- Size -->
                             <input type="hidden" name="size" id="selected-size" value="">
@@ -121,7 +95,7 @@
         // Handle size selection
         const sizeButtons = document.querySelectorAll('.size-btn');
         const selectedSizeInput = document.getElementById('selected-size');
-        // const selectedImageInput = document.getElementById('selected-image');
+        const sizeError = document.getElementById('size-error');
         const quantityInput = document.getElementById('quantity');
         const hiddenQuantityInput = document.getElementById('hidden-quantity');
 
@@ -130,6 +104,7 @@
                 sizeButtons.forEach(btn => btn.classList.remove('bg-gray-200'));
                 this.classList.add('bg-gray-200');
                 selectedSizeInput.value = this.getAttribute('data-size');
+                sizeError.classList.add('hidden');
             });
         });
 
@@ -157,6 +132,14 @@
             });
         });
 
+        // Form submission validation
+        document.getElementById('add-to-cart-form').addEventListener('submit', function(event) {
+            if (!selectedSizeInput.value) {
+                event.preventDefault();
+                sizeError.classList.remove('hidden');
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', function () {
             const form = document.querySelector('form');
             const sizeButtons = document.querySelectorAll('.size-btn');
@@ -173,45 +156,6 @@
                     sizeSelected = true;
                 });
             });
-
-            // imageButtons.forEach(image => {
-            //     image.addEventListener('click', function() {
-            //         selectedImageInput.value = this.src;
-            //         imageSelected = true;
-            //     });
-            // });
-
-        });
-
-            
-        document.addEventListener('DOMContentLoaded', function () {
-            const button = document.querySelector('[data-drawer-toggle="default-sidebar"]');
-            const sidebar = document.getElementById('default-sidebar');
-            const dashboardLink = document.getElementById('dashboard-link');
-
-            button.addEventListener('click', function () {
-                sidebar.classList.toggle('-translate-x-full');
-            });
-
-            dashboardLink.addEventListener('click', function () {
-                sidebar.classList.add('-translate-x-full');
-            });
-        });
-        function closeAlert() {
-            const alert = document.querySelector('[data-dismiss="alert"]').closest('.flex');
-            alert.style.display = 'none';
-        }
-
-        // Alert Fade after 3 seconds
-        document.addEventListener('DOMContentLoaded', function () {
-            setTimeout(function() {
-                const alerts = document.querySelectorAll('.alert-message');
-                alerts.forEach(alert => {
-                    alert.style.transition = 'opacity 0.5s ease';
-                    alert.style.opacity = '0';
-                    setTimeout(() => alert.remove(), 500);
-                });
-            }, 3000);
         });
 
     </script>
