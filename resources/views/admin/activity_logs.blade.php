@@ -28,7 +28,7 @@
         <thead class="uppercase">
             <tr class="border-2">
                 <th scope="col" class="px-6 py-3">Log ID</th>
-                <th scope="col" class="px-6 py-3">User ID</th>
+                <th scope="col" class="px-6 py-3">Usertype</th>
                 <th scope="col" class="px-6 py-3">Action Performed</th>
                 <th scope="col" class="px-6 py-3">Table Name</th>
                 <th scope="col" class="px-6 py-3">Column Data</th>
@@ -41,7 +41,7 @@
 
         <tr class="border-b text-black">
             <td class="px-6 py-4">{{ $log->log_id }}</td>
-            <td class="px-6 py-4">{{ $log->user_id }}</td>
+            <td class="px-6 py-4">{{ $log->usertype }}</td>
             <td class="px-6 py-4">{{ $log->action_performed }}</td>
             <td class="px-6 py-4">{{ $log->table_name }}</td>
             <td class="px-6 py-4">{{ $log->column_data }}</td>

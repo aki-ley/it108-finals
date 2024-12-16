@@ -166,6 +166,12 @@ class HomeController extends Controller
                 return redirect()->back()->with('error', 'Product not found.');
             }
 
+             // Check if size is selected
+            if (!$request->size) {
+                return redirect()->back()->with('error', 'Please select a size first');
+            }
+
+
             $cart = new Cart;
 
             $size = $request->size;

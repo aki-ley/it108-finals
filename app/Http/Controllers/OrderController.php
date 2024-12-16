@@ -58,23 +58,27 @@ public function placeOrder(Request $request)
         'name' => $request->input('name'),
         'email' => $request->input('email'),
         'address' => $request->input('address'),
-        'region' => $request->input('region'),
-        'province' => $request->input('province'),
-        'city' => $request->input('city'),
-        'barangay' => $request->input('barangay'),
+        'region' => $request->input('full_region'),
+        'province' => $request->input('full_province'),
+        'city' => $request->input('full_city'),
+        'barangay' => $request->input('full_barangay'),
         'phone' => $request->input('phone'),
         'payment_method' => $request->input('payment_method')
     ]);
+    session(['order_id' => $order->order_id]);
 
     // Return a success message
     return redirect()->route('checkout.result');
 }
+public function checkout_result(Request $request)
+{
+    // Retrieve the order_id from the session
+    $orderId = session('order_id');
 
-public function checkout_result(){
+    // Fetch the order details for the given order_id
+    $checkoutResult = DB::table('order_details')->where('order_id', $orderId)->first();
 
-    $checkoutResult = DB::table('order_details')->first();
-
-
+    // Pass the order details to the view
     return view('user.checkout_result', compact('checkoutResult'));
 }
     

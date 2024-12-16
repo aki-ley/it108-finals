@@ -13,11 +13,11 @@ return new class extends Migration
     {
         Schema::create('activity_logs', function (Blueprint $table) {
             $table->id('log_id');
-            $table->foreignId('user_id')->nullable()->constrained('users', 'user_id')->onDelete('set null');
-            $table->string('action_performed');
-            $table->string('table_name');
-            $table->string('column_data');  // No need for JSON anymore, use string to store concatenated data
-            $table->timestamps(0); // Timestamp columns
+            $table->string('usertype')->nullable(); // Replaces `user_id` to log the user's type
+            $table->string('action_performed'); // INSERT, UPDATE, DELETE
+            $table->string('table_name'); // Name of the table where the action occurred
+            $table->string('column_data'); // Column name associated with the action
+            $table->timestamps(0); // Timestamps for when the log was created
         });
 
     }

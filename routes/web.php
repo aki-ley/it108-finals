@@ -96,3 +96,10 @@ Route::get('/checkout_result', [OrderController::class, 'checkout_result'])->nam
 Route::get('/view_top_buyer', [AdminController::class, 'top_buyer']);
 
 Route::get('/activity-logs', [AdminController::class, 'activity_logs'])->name('activity.logs');
+
+Route::get('/show_users', [AdminController::class, 'show_users']);
+
+Route::delete('/users/{id}', [AdminController::class, 'remove_user'])->name('user.remove');
+
+
+Route::put('/users/{id}', [AdminController::class, 'edit_role'])->name('user.edit_role');

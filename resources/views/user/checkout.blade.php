@@ -13,37 +13,8 @@
 
     <body>
     @include('user.navbar')
+    @include('user.alert')
 
-    
-    @if(session()->has('error'))
-            <div class="flex justify-center items-center w-full fixed top-0 right-0 left-0 z-50">
-                <div class="relative p-4 w-full max-w-md max-h-full">
-                    <div class="relative bg-white bg-opacity-90 rounded-lg shadow">
-                        <button type="button" class="close absolute top-3 end-2.5 text-gray-500 hover:text-red-500 " data-dismiss="alert" onclick="closeAlert()">
-                            <i class="ph-bold ph-x"></i>
-                        </button>
-                        <div class="p-4 md:p-5 text-center">
-                            <h3 class="mt-5 mb-5 text-lg font-normal text-red-500">{{ session()->get('error') }}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
-
-        @if(session()->has('message'))
-            <div class="flex justify-center items-center w-full fixed top-0 right-0 left-0 z-50">
-                <div class="relative p-4 w-full max-w-md max-h-full">
-                    <div class="relative bg-white bg-opacity-90 rounded-lg shadow">
-                        <button type="button" class="close absolute top-3 end-2.5 text-gray-500 hover:text-red-500 " data-dismiss="alert" onclick="closeAlert()">
-                            <i class="ph-bold ph-x"></i>
-                        </button>
-                        <div class="p-4 md:p-5 text-center">
-                            <h3 class="mt-5 mb-5 text-lg font-normal text-green-500">{{ session()->get('message') }}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endif
     <section class="bg-white py-8 antialiasedmd:py-16">
   <form action="{{ route('order.place') }}" method="POST" class="mx-auto max-w-screen-xl px-4 2xl:px-0">
     @csrf
@@ -115,7 +86,6 @@
                 <option value="">City</option>
               </select>
             </div>
-
             <div>
               <div class="mb-2 flex items-center gap-2">
                 <label for="barangay" class="block text-sm font-medium text-gray-900"> Barangay </label>
@@ -124,7 +94,6 @@
                 <option value="">Barangay</option>
               </select>
             </div>
-
             <div>
               <label for="phoneno" class="mb-2 block text-sm font-medium text-gray-900"> Phone Number </label>
               <div class="flex items-center">
@@ -137,6 +106,28 @@
               </div>
             </div>
           </div>
+        </div>
+        
+        <div class="invisible absolute">
+            <div>
+              <label for="full_region" class="mb-2 block text-sm font-medium text-gray-900"> Region </label>
+              <input type="text" id="full_region" name="full_region" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" readonly />
+            </div>
+
+            <div>
+              <label for="full_province" class="mb-2 block text-sm font-medium text-gray-900"> Province </label>
+              <input type="text" id="full_province" name="full_province" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" readonly />
+            </div>
+
+            <div>
+              <label for="full_city" class="mb-2 block text-sm font-medium text-gray-900"> City </label>
+              <input type="text" id="full_city" name="full_city" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" readonly />
+            </div>
+
+            <div>
+              <label for="full_barangay" class="mb-2 block text-sm font-medium text-gray-900"> Barangay </label>
+              <input type="text" id="full_barangay" name="full_barangay" class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-primary-500 focus:ring-primary-500" readonly />
+            </div>
         </div>
 
         <div class="space-y-4">
@@ -166,14 +157,12 @@
                   <label for="credit-card" class="font-medium leading-none text-gray-900"> Credit Card </label>
                   <p id="credit-card-text" class="mt-1 text-xs font-normal text-gray-500">Pay with your credit card</p>
                 </div>
-              </div>          
+              </div>
             </div>
           </div>
         </div>
       </div>
-      @php
-        $shippingFee = 300;
-      @endphp
+
       <div class="mt-6 w-full space-y-6 sm:mt-8 lg:mt-0 lg:max-w-xs xl:max-w-md">
         <div class="mx-auto mt-6 max-w-4xl flex-1 space-y-6 lg:mt-0 lg:w-full">
           <div class="space-y-4 rounded-lg border border-gray-200 bg-white p-4 shadow-sm  sm:p-6">
@@ -182,7 +171,7 @@
               <div class="space-y-2">
                   <dl class="flex items-center justify-between gap-4">
                       <dt class="text-base font-normal text-gray-500">Bag</dt>
-                      <dd class="text-base font-medium text-gray-900">₱{{ number_format($totalAmount, 2) }}</dd>
+                      <dd class="text-base font-medium text-gray-900">₱{{ number_format($totalPrice, 2) }}</dd>
                   </dl>
                   <dl class="flex items-center justify-between gap-4">
                       <dt class="text-base font-normal text-gray-500">Shipping Fee</dt>
@@ -192,7 +181,7 @@
 
               <dl class="flex items-center justify-between gap-4 border-t border-gray-200 pt-2 dark:border-gray-700">
                   <dt class="text-base font-bold text-gray-900">Total</dt>
-                  <dd class="text-base font-bold text-gray-900">₱{{ number_format($totalAmount + $shippingFee, 2) }}</dd>
+                  <dd class="text-base font-bold text-gray-900">₱{{ number_format($totalAmount, 2) }}</dd>
                   
               </dl>
 
@@ -219,6 +208,7 @@
     </div>
   </form>
 </section>
+
 
 <script>
   fetch(`https://psgc.gitlab.io/api/regions/`)
@@ -315,23 +305,22 @@
       </script>
 
       <script>
-      document.addEventListener('DOMContentLoaded', function () {
-          const button = document.querySelector('[data-drawer-toggle="default-sidebar"]');
-          const sidebar = document.getElementById('default-sidebar');
-          const dashboardLink = document.getElementById('dashboard-link');
+              function updateFullAddress() {
+              const region = document.getElementById('region').selectedOptions[0].textContent;
+              const province = document.getElementById('province').selectedOptions[0].textContent;
+              const city = document.getElementById('city').selectedOptions[0].textContent;
+              const barangay = document.getElementById('barangay').selectedOptions[0].textContent;
 
-          button.addEventListener('click', function () {
-              sidebar.classList.toggle('-translate-x-full');
-          });
+              document.getElementById('full_region').value = region;
+              document.getElementById('full_province').value = province;
+              document.getElementById('full_city').value = city;
+              document.getElementById('full_barangay').value = barangay;
+              }
 
-          dashboardLink.addEventListener('click', function () {
-              sidebar.classList.add('-translate-x-full');
-          });
-      });
-      function closeAlert() {
-          const alert = document.querySelector('[data-dismiss="alert"]').closest('.flex');
-          alert.style.display = 'none';
-      }
-      </script>
+              document.getElementById('region').addEventListener('change', updateFullAddress);
+              document.getElementById('province').addEventListener('change', updateFullAddress);
+              document.getElementById('city').addEventListener('change', updateFullAddress);
+              document.getElementById('barangay').addEventListener('change', updateFullAddress);
+            </script>
     </body>
 </html>
