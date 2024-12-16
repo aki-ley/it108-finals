@@ -11,6 +11,42 @@
 
         <div class="">
             <div class="space-x-4">
+                <!-- Search Icon with Animated Input Field -->
+                <div class="relative inline-block">
+                    <button id="searchButton" class="inline-flex items-center justify-center focus:outline-none">
+                        <i id="searchIcon" class="ph-bold ph-magnifying-glass"></i>
+                    </button>
+                    <input id="searchBar" type="text" class="absolute right-0 bg-white ring-1 ring-black ring-opacity-5 opacity-0 invisible transition-all duration-200 w-0 h-6 focus:w-48 focus:opacity-100 focus:visible focus:px-4 focus:py-2 focus:border-black focus:ring-black" placeholder="Search">
+                </div>
+
+                <script>
+                    document.getElementById('searchButton').addEventListener('click', function(event) {
+                        event.stopPropagation();
+                        var searchBar = document.getElementById('searchBar');
+                        var searchIcon = document.getElementById('searchIcon');
+                        if (searchBar.classList.contains('w-0')) {
+                            searchBar.classList.remove('w-0', 'opacity-0', 'invisible');
+                            searchBar.classList.add('w-48', 'opacity-100', 'visible');
+                            searchIcon.classList.add('hidden');
+                            searchBar.focus();
+                        } else {
+                            searchBar.classList.remove('w-48', 'opacity-100', 'visible');
+                            searchBar.classList.add('w-0', 'opacity-0', 'invisible');
+                            searchIcon.classList.remove('hidden');
+                        }
+                    });
+
+                    document.addEventListener('click', function(event) {
+                        var searchBar = document.getElementById('searchBar');
+                        var searchIcon = document.getElementById('searchIcon');
+                        if (!document.getElementById('searchButton').contains(event.target) && !searchBar.contains(event.target)) {
+                            searchBar.classList.remove('w-48', 'opacity-100', 'visible');
+                            searchBar.classList.add('w-0', 'opacity-0', 'invisible');
+                            searchIcon.classList.remove('hidden');
+                        }
+                    });
+                </script>
+
                 <!-- User Icon with Dropdown -->
                 <div class="relative inline-block group">
                     <!-- Trigger button with User Icon -->
