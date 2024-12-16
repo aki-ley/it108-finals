@@ -71,6 +71,13 @@
                 </a>
             </li>
 
+            <li>
+                <a href="{{url('/show_users')}}" class="flex items-center p-2 rounded-lg group">
+                    <i class="ph-bold ph-eye"></i>
+                    <span class="flex-1 ms-3 whitespace-nowrap">Show Users</span>
+                </a>
+            </li>
+
         </ul>
     </div>
 </aside>

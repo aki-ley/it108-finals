@@ -14,6 +14,7 @@
     <body class="bg-slate-100">
         @include('user.navbar')
 
+
         <section class="flex flex-col w-1/2 lg:w-1/3 xl:w-1/4 mx-auto p-8 md:p-10 2xl:p-12 3xl:p-14 mt-20 rounded-2xl shadow-md bg-white">
             <div class="rounded-xl mx-auto">
                 <div class="flex space-x-6">
@@ -26,6 +27,11 @@
                 <p class="mt-4 text-center">Redirecting in <span id="countdown">5</span> seconds...</p>
             </div>
         </section>
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/rollback
 <script type="text/javascript">
     let countdown = 5;
     const countdownElement = document.getElementById('countdown');

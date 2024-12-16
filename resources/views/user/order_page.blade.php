@@ -11,6 +11,10 @@
 
 <body>
     @include('user.navbar')
+    
+
+    <?php $shippingFee = 300; ?>
+    
     <section class="bg-white py-8 antialiased md:py-16">
             <div class="mx-auto max-w-screen-xl px-4 2xl:px-0">
                 <div class="mt-6 sm:mt-8 md:gap-6 lg:flex lg:items-start xl:gap-8">
