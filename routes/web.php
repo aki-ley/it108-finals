@@ -48,10 +48,16 @@ Route::get('/delivered/{id}', [SellerController::class, 'delivered'])->name('del
 //USER ROUTE
 
 //shop page
-Route::get('/shop_page', [HomeController::class, 'viewshoes']);
+Route::get('/shop_page', [HomeController::class, 'viewshoes'])->name('shop_page');
+
+
+//search suggestions
+Route::get('/search-suggestions', [HomeController::class, 'searchSuggestions']);
+
+
     
 //product details
-Route::get('/product_details/{id}', [HomeController::class, 'showProductDetails']);
+Route::get('/product_details/{id}', [HomeController::class, 'showProductDetails'])->name('product_details');
 
 //add wishlist
 Route::post('/wishlist', [HomeController::class, 'add_wishlist'])->name('wishlist.add');

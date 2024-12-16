@@ -46,12 +46,24 @@ class HomeController extends Controller
     }
 
 
-    public function viewshoes(){
+    public function viewshoes(Request $request)
+    {
+        // Get the search query from the request
+        $query = $request->input('query');
+        
+        // If a query exists, search for matching products
+        if ($query) {
+            $products = DB::table('products')
+                ->whereRaw('LOWER(product_title) LIKE ?', ['%' . strtolower($query) . '%'])
+                ->get();
+        } else {
+            // Otherwise, fetch all products
+            $products = DB::table('products')->get();
+        }
 
-        $products = DB::table('products')->get();
-
-        return view ('user.shop', compact('products'));
+        return view('user.shop', compact('products'));
     }
+
 
     public function showProductDetails($product_id)
     {
@@ -243,9 +255,22 @@ class HomeController extends Controller
         }
     }
     
-    
 
- 
+
+    public function searchSuggestions(Request $request)
+    {
+        // Get the search query
+        $query = $request->input('q');
+        
+        // Fetch matching products based on product title (case-insensitive)
+        $products = DB::table('products')
+            ->whereRaw('LOWER(product_title) LIKE ?', ['%' . strtolower($query) . '%'])
+            ->get();
+
+        // Return the products as JSON for auto-suggest
+        return response()->json($products);
+    }
+
     
 }
 
