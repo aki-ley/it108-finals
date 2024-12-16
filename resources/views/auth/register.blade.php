@@ -64,16 +64,16 @@
 
             <button type="submit" class="w-full text-white bg-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mb-6">Sign Up</button>
             
-            <div class="text-sm font-light text-[#6B7280]">
-                Already have an account? <a href="{{ route('login') }}" class="font-medium text-black hover:underline">Login</a>
+            <div class="flex justify-center">
+                <a href="{{ route('login') }}" class="text-sm text-gray-500 hover:text-gray-900 hover:underline">Already have an account? Login</a>
             </div>
         </form>
 
         <!-- OR separator -->
         <div class="relative flex py-8 items-center">
-            <div class="flex-grow border-t border-[1px] border-gray-200"></div> 
+            <div class="flex-grow border-t border-gray-200"></div> 
             <span class="flex-shrink mx-4 font-medium text-gray-500">OR</span>
-            <div class="flex-grow border-t border-[1px] border-gray-200"></div>
+            <div class="flex-grow border-t border-gray-200"></div>
         </div>
 
         <!-- Social Logins -->

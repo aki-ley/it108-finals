@@ -255,8 +255,6 @@ class HomeController extends Controller
         }
     }
     
-
-
     public function searchSuggestions(Request $request)
     {
         // Get the search query

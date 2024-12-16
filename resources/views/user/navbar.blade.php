@@ -17,10 +17,10 @@
                         <button id="searchButton" class="inline-flex items-center justify-center focus:outline-none" type="button">
                             <i id="searchIcon" class="ph-bold ph-magnifying-glass"></i>
                         </button>
-                        <input 
-                            id="searchBar" 
-                            name="query" 
-                            type="text" 
+                        <input
+                            id="searchBar"
+                            name="query"
+                            type="text"
                             class="absolute right-0 bg-slate-100 ring-1 ring-black ring-opacity-5 opacity-0 invisible transition-all duration-200 w-0 h-6 focus:w-48 focus:opacity-100 focus:visible focus:px-4 focus:py-2 focus:border-black focus:ring-black" 
                             placeholder="Search"
                             onkeyup="fetchSuggestions()">

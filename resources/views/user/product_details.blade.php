@@ -12,8 +12,8 @@
 <body>
     @include('user.navbar')
 
-    @if(session()->has('message'))
-                <div class="flex justify-center items-center w-full fixed top-0 right-0 left-0 z-50">
+            @if(session()->has('message'))
+                <div class="flex justify-center items-center w-full fixed top-0 right-0 left-0 z-50 alert-message">
                     <div class="relative p-4 w-full max-w-md max-h-full">
                         <div class="relative bg-white bg-opacity-90 rounded-lg shadow">
                             <button type="button" class="close absolute top-3 end-2.5 text-gray-500 hover:text-red-500 " data-dismiss="alert" onclick="closeAlert()">
@@ -27,9 +27,8 @@
                 </div>
             @endif
 
-
             @if(session()->has('error'))
-                <div class="flex justify-center items-center w-full fixed top-0 right-0 left-0 z-50">
+                <div class="flex justify-center items-center w-full fixed top-0 right-0 left-0 z-50 alert-message">
                     <div class="relative p-4 w-full max-w-md max-h-full">
                         <div class="relative bg-white bg-opacity-90 rounded-lg shadow">
                             <button type="button" class="close absolute top-3 end-2.5 text-gray-500 hover:text-red-500 " data-dismiss="alert" onclick="closeAlert()">
@@ -43,8 +42,6 @@
                 </div>
             @endif
             
-                
-
     <section class="py-8 md:py-16">
         <div class="max-w-screen-lg px-4 mx-auto 2xl:px-0">
             <div class="lg:grid lg:grid-cols-5 group">
@@ -83,9 +80,7 @@
                     <div class="mt-6 sm:mt-8">
                         <p class="text-base font-bold sm:text-xl">Quantity</p>
                         <div class="flex items-center mt-4">
-                            <button type="button" class="py-2 px-4 border-2" id="decrease-quantity">-</button>
-                            <input type="number" id="quantity" name="quantity" value="1" class="mx-2 w-12 text-center border-2" min="1">
-                            <button type="button" class="py-2 px-4 border-2" id="increase-quantity">+</button>
+                            <button type="button" class="decrease-quantity px-4 py-2 border rounded-l-lg border-gray-300 border-r-0 bg-black text-white" id="decrease-quantity">-</button><input type="number" id="quantity" name="quantity" value="1" class="w-12 py-2 text-center border border-gray-300" min="1"><button type="button" class="increase-quantity px-4 py-2 border rounded-r-lg border-gray-300 border-l-0 bg-black text-white" id="increase-quantity">+</button>
                         </div>
                     </div>
 
@@ -115,7 +110,6 @@
                                 <i class="ph-bold ph-heart-straight text-sm sm:text-lg"></i>
                             </button>
                         </form>
-
 
                     </div>
                 </div>
@@ -207,6 +201,18 @@
             const alert = document.querySelector('[data-dismiss="alert"]').closest('.flex');
             alert.style.display = 'none';
         }
+
+        // Alert Fade after 3 seconds
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function() {
+                const alerts = document.querySelectorAll('.alert-message');
+                alerts.forEach(alert => {
+                    alert.style.transition = 'opacity 0.5s ease';
+                    alert.style.opacity = '0';
+                    setTimeout(() => alert.remove(), 500);
+                });
+            }, 3000);
+        });
 
     </script>
 </body>
