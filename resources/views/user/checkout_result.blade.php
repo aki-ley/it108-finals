@@ -27,11 +27,6 @@
                 <p class="mt-4 text-center">Redirecting in <span id="countdown">5</span> seconds...</p>
             </div>
         </section>
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/rollback
 <script type="text/javascript">
     let countdown = 5;
     const countdownElement = document.getElementById('countdown');
