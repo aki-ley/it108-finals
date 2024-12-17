@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('barangay');
             $table->string('phone', 15);
             $table->string('payment_method');
-            $table->timestamps(0); // Timestamp columns
+            $table->timestamps(0);
         });
     }
 

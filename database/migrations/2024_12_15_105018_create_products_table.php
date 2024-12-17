@@ -18,11 +18,10 @@ return new class extends Migration
             $table->string('image1')->nullable();
             $table->string('image2')->nullable();
             $table->string('image3')->nullable();
-            $table->integer('quantity');
+            $table->integer('quantity'); // Stock quantity
             $table->decimal('price', 10, 2);
-            $table->timestamps(0); // Timestamp columns
+            $table->timestamps(0);
         });
-
     }
 
     /**
