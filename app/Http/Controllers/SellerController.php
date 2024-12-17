@@ -100,7 +100,7 @@ class SellerController extends Controller
         }
 
         // Fetch order summary data from the view
-        $orders = DB::table('order_details_view')->get();
+        $orders = DB::table('user_orders_seller_view')->get();
 
         return view('seller.show_orders', compact('orders'));
     }
@@ -113,7 +113,7 @@ class SellerController extends Controller
         }
 
         // Fetch the order from the view
-        $order = DB::table('order_details_view')->where('order_id', $order_id)->first();
+        $order = DB::table('user_orders_view')->where('order_id', $order_id)->first();
     
         if (!$order) {
             return redirect()->back()->with('error', 'Order not found.');

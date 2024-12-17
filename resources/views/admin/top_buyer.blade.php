@@ -38,8 +38,8 @@
             @foreach ($topBuyers as $buyer)
                 <tr class="border-b text-black">
                     <td class="px-6 py-4">{{ $buyer->user_id }}</td>
-                    <td class="px-6 py-4">{{ $buyer->name }}</td>
-                    <td class="px-6 py-4">{{ $buyer->email }}</td>
+                    <td class="px-6 py-4">{{ $buyer->buyer_name }}</td>
+                    <td class="px-6 py-4">{{ $buyer->buyer_email }}</td>
                     <td class="px-6 py-4">{{ number_format($buyer->total_spent, 2) }}</td>
                     <td class="px-6 py-4">{{ $buyer->total_orders }}</td>
                 </tr>

@@ -10,10 +10,6 @@ class Product extends Model
 
     protected $primaryKey = 'product_id'; // Define the primary key
 
-    public function wishlists()
-    {
-        return $this->hasMany(Wishlist::class, 'product_id', 'product_id');
-    }
     
 
 }

@@ -19,15 +19,9 @@ class Order extends Model
         'total_price',
         'payment_status',
         'delivery_status',
-        'quantity',
-        'size',
     ];
 
 
-    public function orderDetails()
-    {
-        return $this->hasMany(OrderDetail::class, 'order_id');
-    }
 
     
 }

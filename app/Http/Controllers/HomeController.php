@@ -8,6 +8,10 @@ use App\Models\User;
 use App\Models\Product;
 use App\Models\Cart;
 use App\Models\Wishlist;
+use App\Models\Order;
+use App\Models\OrderItem;
+
+
 
 
 use Illuminate\Support\Facades\DB;
@@ -159,42 +163,48 @@ class HomeController extends Controller
 
     public function add_cart(Request $request, $product_id)
     {
-        if (Auth::id()) {
+        if (Auth::check()) {
             $user = Auth::user();
             $product = Product::find($product_id);
+    
             if (!$product) {
                 return redirect()->back()->with('error', 'Product not found.');
             }
-
-             // Check if size is selected
+    
+            // Check if size is selected
             if (!$request->size) {
                 return redirect()->back()->with('error', 'Please select a size first');
             }
-
-
-            $cart = new Cart;
-
-            $size = $request->size;
-            if (strlen($size) > 10) {
-                $size = substr($size, 0, 10); // Truncate to 10 characters
+    
+            // Ensure quantity is a valid number
+            $quantity = $request->quantity ?: 1; // Default to 1 if quantity is not provided
+    
+            // Check if the cart already has the same product and size combination
+            $existingCartItem = Cart::where('user_id', $user->user_id)
+                ->where('product_id', $product->product_id)
+                ->where('size', $request->size)
+                ->first();
+    
+            if ($existingCartItem) {
+                // If the item already exists, update the quantity
+                $existingCartItem->quantity += $quantity;
+                $existingCartItem->save();
+            } else {
+                // If not, create a new cart item
+                $cart = new Cart;
+                $cart->user_id = $user->user_id;
+                $cart->product_id = $product->product_id;
+                $cart->size = $request->size;
+                $cart->quantity = $quantity;
+                $cart->save();
             }
-
-            $cart->user_id = $user->user_id;
-            $cart->product_title = $product->product_title;
-            $cart->price = $product->price;
-            $cart->image1 = $request->image1;
-            $cart->product_id = $product->product_id;
-            $cart->quantity = $request->quantity;
-            $cart->size = $request->size;
-
-            $cart->save();
-
+    
             return redirect()->back()->with('message', 'Product added to cart successfully!');
         } else {
             return redirect()->route('login')->with('error', 'Please log in to add items to the cart.');
         }
     }
-
+    
     public function show_cart()
     {
         if (Auth::check()) {
@@ -204,13 +214,18 @@ class HomeController extends Controller
             // Call the calculate_cart_total function using a raw SQL query
             $totalPrice = DB::selectOne('SELECT calculate_cart_total(?) AS total', [$user_id]);
 
-            $cartItems = Cart::where('user_id', $user_id)->get(); // Get all cart items for the logged-in user
+            // Get all cart items for the logged-in user
+            $cartItems = Cart::with('product')  // Eager load the associated product data
+                ->where('user_id', $user_id)
+                ->get();
 
             return view('user.cart', compact('cartItems', 'totalPrice'));
         } else {
             return redirect()->route('login')->with('error', 'Please log in to view your cart.');
         }
     }
+
+    
     public function remove_cart($cart_id)
     {
         if (Auth::check()) {
@@ -236,7 +251,7 @@ class HomeController extends Controller
             $user = Auth::user();
             $user_id = $user->user_id;
     
-            // Call the calculate_cart_total function using a raw SQL query
+            // Calculate the total cart price using a raw SQL query
             $totalPrice = DB::selectOne('SELECT calculate_cart_total(?) AS total', [$user_id]);
     
             // Retrieve all cart items for the logged-in user
@@ -244,17 +259,17 @@ class HomeController extends Controller
     
             // Check if the cart is empty
             if ($cartItems->isEmpty()) {
-                // Redirect back with a message if the cart is empty
                 return redirect()->back()->with('error', 'Your cart is empty. Please add items to the cart.');
             }
     
             // If no total price is returned, default to 0
             $totalPrice = $totalPrice ? $totalPrice->total : 0;
     
-            // Add shipping fee (if applicable)
+            // Shipping fee (you can adjust this as needed)
             $shippingFee = 300;
-            $totalAmount = $totalPrice + $shippingFee;
+            $totalAmount = $totalPrice + $shippingFee; // Total amount includes shipping fee
     
+            // Store the cart summary data and pass it to the checkout view
             return view('user.checkout', compact('cartItems', 'totalPrice', 'shippingFee', 'totalAmount'));
         } else {
             return redirect()->route('login')->with('error', 'Please log in to checkout.');
