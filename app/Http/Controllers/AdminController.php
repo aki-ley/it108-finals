@@ -52,7 +52,6 @@ class AdminController extends Controller
         
 
         return view ('admin.show_users', compact('users'));
-        // dd($users);
     }
 
     public function remove_user($user_id)
