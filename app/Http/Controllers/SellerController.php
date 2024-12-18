@@ -54,8 +54,11 @@ class SellerController extends Controller
             $file3->move('product', $image3);
         }
 
+        // Set the ID of the currently authenticated user
+        $updatedById = auth()->id();
+
         DB::insert(
-            'INSERT INTO products (product_title, description, price, quantity, image1, image2, image3, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())',
+            'INSERT INTO products (product_title, description, price, quantity, image1, image2, image3, updated_by, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())',
             [
                 $request->product_title,
                 $request->description,
@@ -63,7 +66,8 @@ class SellerController extends Controller
                 $request->quantity,
                 $image1,
                 $image2,
-                $image3
+                $image3,
+                $updatedById
             ]
         );
 
@@ -118,11 +122,14 @@ class SellerController extends Controller
         if (!$order) {
             return redirect()->back()->with('error', 'Order not found.');
         }
+
+        $updatedById = auth()->id();
     
         // Update the delivery and payment status in the `orders` table
         DB::table('orders')->where('order_id', $order_id)->update([
             'delivery_status' => 'Delivered',
             'payment_status' => 'Paid',
+            'updated_by' => $updatedById,
         ]);
     
         return redirect()->back()->with('success', 'Order marked as delivered.');

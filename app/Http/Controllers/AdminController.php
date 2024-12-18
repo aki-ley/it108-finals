@@ -56,12 +56,39 @@ class AdminController extends Controller
 
     public function remove_user($user_id)
     {
+        // Check if the user is authenticated and is an admin
         if (Auth::check() && Auth::user()->usertype != 'admin') {
             return redirect('/'); // Redirect if not admin
         }
-        DB::table('users')->where('user_id', $user_id)->delete();
 
-        return redirect()->back()->with('message', 'User deleted successfully!');
+        // Get the ID of the user performing the deletion
+        $updatedById = auth()->id(); 
+
+        // Fetch the user to be deleted
+        $user = DB::table('users')->where('user_id', $user_id)->first();
+
+        $user->updated_by = $updatedById;
+        $updatedByRole = User::where('user_id', $updatedById)->value('usertype');
+
+        // Check if the user exists before attempting to delete
+        if ($user) {
+            // Delete the user
+            DB::table('users')->where('user_id', $user_id)->delete();
+
+            // Log the deletion in the activity_logs table
+            DB::table('activity_logs')->insert([
+                'usertype' => $updatedByRole,
+                'action_performed' => 'DELETE',
+                'table_name' => 'users',
+                'column_data' => 'usertype',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+            return redirect()->back()->with('message', 'User  deleted successfully!');
+        }
+
+        return redirect()->back()->with('error', 'User  not found!');
     }
 
     public function edit_role(Request $request, $user_id)
@@ -74,9 +101,26 @@ class AdminController extends Controller
         // Find the user by ID
         $user = User::findOrFail($user_id);
 
+        // Set the ID of the currently authenticated user
+        $updatedById = auth()->id();
+
         // Update the user's role
+        $user->updated_by = $updatedById; // Set to the ID of the currently authenticated user
         $user->usertype = $request->input('usertype');
         $user->save();
+
+        // Retrieve the usertype of the user who performed the action
+        $updatedByRole = User::where('user_id', $updatedById)->value('usertype');
+
+        // Log the activity
+        \DB::table('activity_logs')->insert([
+            'usertype' => $updatedByRole,
+            'action_performed' => 'UPDATE',
+            'table_name' => 'users',
+            'column_data' => 'usertype',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
 
         // Redirect back with a success message
         return redirect()->back()->with('message', 'User  role updated successfully.');
