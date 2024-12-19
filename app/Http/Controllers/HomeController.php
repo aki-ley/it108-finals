@@ -106,6 +106,8 @@ class HomeController extends Controller
         if ($existingWishlistItem) {
             return redirect()->back()->with('message', 'This product is already in your wishlist.');
         }
+
+        $updatedById = auth()->id();
     
         // Add the product to the wishlist using a raw query
         DB::table('wishlists')->insert([
@@ -113,6 +115,7 @@ class HomeController extends Controller
             'product_id' => $productId,
             'created_at' => now(),
             'updated_at' => now(),
+            'updated_by' => $updatedById
         ]);
     
         return redirect()->back()->with('message', 'Product added to wishlist successfully!');
@@ -184,6 +187,8 @@ class HomeController extends Controller
                 ->where('product_id', $product->product_id)
                 ->where('size', $request->size)
                 ->first();
+
+            $updatedById = auth()->id();
     
             if ($existingCartItem) {
                 // If the item already exists, update the quantity
@@ -196,6 +201,7 @@ class HomeController extends Controller
                 $cart->product_id = $product->product_id;
                 $cart->size = $request->size;
                 $cart->quantity = $quantity;
+                $cart->updated_by = $updatedById;
                 $cart->save();
             }
     

@@ -49,8 +49,6 @@ class AdminController extends Controller
 
         $users = DB::table('users')->get();
 
-        
-
         return view ('admin.show_users', compact('users'));
     }
 
@@ -77,10 +75,11 @@ class AdminController extends Controller
 
             // Log the deletion in the activity_logs table
             DB::table('activity_logs')->insert([
+                'updated_by' => $updatedById,
                 'usertype' => $updatedByRole,
                 'action_performed' => 'DELETE',
                 'table_name' => 'users',
-                'column_data' => 'usertype',
+                'column_data' => 'Deleted user',
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
@@ -101,6 +100,8 @@ class AdminController extends Controller
         // Find the user by ID
         $user = User::findOrFail($user_id);
 
+        $oldUserType = $user->usertype;
+
         // Set the ID of the currently authenticated user
         $updatedById = auth()->id();
 
@@ -114,10 +115,11 @@ class AdminController extends Controller
 
         // Log the activity
         \DB::table('activity_logs')->insert([
+            'updated_by' => $updatedById,
             'usertype' => $updatedByRole,
             'action_performed' => 'UPDATE',
             'table_name' => 'users',
-            'column_data' => 'usertype',
+            'column_data' => "Old usertype: {$oldUserType}, New usertype: {$user->usertype}", 
             'created_at' => now(),
             'updated_at' => now(),
         ]);
